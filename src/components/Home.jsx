@@ -1,12 +1,25 @@
-import React from 'react'
+import { useState, useEffect } from 'react';
+import ContactFilter from './ContactFilter';
+import ContactForm from './ContactForm';
+import Contact from './Contact'
 
-const Home = () => {
+
+const Home = ({ data }) => {
+  console.log(data);
+
   return (
-    <div className='container'>
-    
-    <h1>Home</h1>
-    </div>
-  )
-}
+    <div className='grid-2'>
+      <div>
+        <ContactForm />
+      </div>
+      <div>
+        <ContactFilter  data={data}/>
+        <Contact data={data}/>
+      </div>
 
-export default Home
+      <div>{}</div>
+    </div>
+  );
+};
+
+export default Home;

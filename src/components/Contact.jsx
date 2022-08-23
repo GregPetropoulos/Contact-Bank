@@ -1,8 +1,11 @@
 import React from 'react'
+import ContactDetails from './ContactDetails';
 
-const Contact = () => {
+const Contact = ({data}) => {
   return (
-    <div>Contact</div>
+    <div>{data.map(item=>(
+      <ContactDetails key={item.id} item={item}/>
+    ))}</div>
   )
 }
 

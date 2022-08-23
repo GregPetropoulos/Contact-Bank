@@ -7,7 +7,7 @@ const Footer = () => {
         <Link to='/'>
           <button className='btn btn-xs m-2'>1</button>
         </Link>
-        <Link to='/contact'>
+        <Link to='/contact-details'>
           <button className='btn btn-xs m-2 btn-active'>2</button>
         </Link>
       </div>
