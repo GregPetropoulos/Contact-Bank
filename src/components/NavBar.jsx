@@ -28,7 +28,7 @@ const NavBar = () => {
             </li>
 
             <li>
-              <Link to='/contact-details'>Contact Details</Link>
+              <Link to='/all-contacts'>All Contacts</Link>
             </li>
           </ul>
         </div>
@@ -43,12 +43,11 @@ const NavBar = () => {
           </li>
 
           <li>
-            <Link to='/contact-details'>Contact Details</Link>
+            <Link to='/all-contacts'>All Contacts</Link>
           </li>
         </ul>
       </div>
       <div className='navbar-end'>
-        {/* <div>xx</div> */}
       </div>
     </div>
   );

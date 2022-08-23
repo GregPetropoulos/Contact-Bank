@@ -1,8 +1,14 @@
 import React from 'react'
 
 const ContactForm = () => {
+
+  const onChange=()=>{
+    console.log('onchange')
+  }
   return (
-    <div>ContactForm</div>
+    <form onSubmit ={(e)=> e.preventDefault()}>
+            <input type ='text' placeholder='Filter Contacts...' onChange={onChange}/>
+        </form>
   )
 }
 

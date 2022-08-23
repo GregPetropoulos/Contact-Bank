@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './components/Home';
 import Navbar from './components/NavBar';
 import Footer from './components/Footer'
-import ContactDetails from'./components/ContactDetails'
+import AllContacts from './components/AllContacts';
 
 import jsonData from './data/contacts.json' 
 
@@ -16,7 +16,7 @@ function App() {
         <Navbar />
       <Routes>
         <Route path='/' element={<Home data={data} />} />
-        <Route path='/contact-details' element={<ContactDetails />} />
+        <Route path='/all-contacts' element={<AllContacts data={data}/>} />
       </Routes>
       <Footer/>
     </Router>
