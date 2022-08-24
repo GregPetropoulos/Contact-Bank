@@ -18,7 +18,7 @@ function App() {
         <Route path='/' element={<Home data={data} setData={setData}/>} />
         <Route path='/all-contacts' element={<AllContacts data={data}/>} />
       </Routes>
-      <Footer/>
+      <Footer data={data}/>
     </Router>
   );
 }
