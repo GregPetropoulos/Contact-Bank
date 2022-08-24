@@ -3,8 +3,7 @@ import ContactFilter from './ContactFilter';
 import ContactForm from './ContactForm';
 // import Contact from './Contact'
 
-
-const Home = ({ data,setData}) => {
+const Home = ({ data, setData }) => {
   console.log(data);
 
   return (
@@ -13,8 +12,7 @@ const Home = ({ data,setData}) => {
         <ContactForm />
       </div>
       <div>
-        <ContactFilter  data={data} setData={setData}/>
-
+        <ContactFilter data={data} setData={setData} />
       </div>
 
       <div>{}</div>
