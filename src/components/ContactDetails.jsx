@@ -1,11 +1,11 @@
 import React from 'react';
 
-const ContactDetails = ({ item }) => {
-  // console.log("item",item)
+const ContactDetails = ({ item}) => {
+
   const { firstName, lastName, email, countryCode, phoneNumber } = item;
   return (
-    <div className='flex justify-around m-5'>
-      <div className='card w-96 bg-secondary shadow-xl'>
+    <>
+      <div className='card bg-secondary shadow-xl m-3'>
         <div className='card-body'>
           <h2 className='card-title'>
             {firstName} {lastName}
@@ -18,12 +18,18 @@ const ContactDetails = ({ item }) => {
           <small>{`Country Code: ${countryCode}`}</small>
           <div className='card-actions justify-end'>
             <a href={`mailto:${email} `}>
-              <button className='btn btn-primary'>Send A Message</button>
+              <button className='btn btn-xs m-1 btn-primary' >Send A Message</button>
             </a>
+              <div className="btn-group justify-between">
+
+              <button className='btn btn-xs m-1 btn-primary' onClick={()=>console.log("Edit Work In Progress")}>Edit</button>
+              <button className='btn btn-xs m-1 btn-primary' onClick={()=>console.log("Delete Work In Progress")}>Delete</button>
+              </div>
+
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

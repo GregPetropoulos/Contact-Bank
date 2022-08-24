@@ -5,12 +5,18 @@ const Footer = () => {
     <div className='flex justify-center m-3 w-full'>
       <div className='btn-group'>
         <Link to='/'>
-          <button className='btn btn-xs m-2'>1</button>
+          <button className='btn btn-xs m-2'>Home</button>
         </Link>
-        <Link to='/contact-details'>
-          <button className='btn btn-xs m-2 btn-active'>2</button>
+        <Link to='/all-contacts'>
+          <button className='btn btn-xs m-2 btn-active'>All Contacts </button>
         </Link>
       </div>
+      <div className="btn-group">
+  <button className="btn">1</button>
+  <button className="btn btn-active">2</button>
+  <button className="btn">3</button>
+  <button className="btn">4</button>
+</div>
     </div>
   );
 };

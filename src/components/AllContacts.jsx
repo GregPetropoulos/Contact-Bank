@@ -3,7 +3,7 @@ import React from 'react'
 
 const AllContacts = ({data}) => {
 
-console.log("data",data)
+
 const dataAll=data
   return (<>
          {dataAll.map(item=> (
