@@ -1,7 +1,6 @@
 import React from 'react';
 
-const ContactDetails = ({ item}) => {
-
+const ContactDetails = ({ item, setData }) => {
   const { firstName, lastName, email, countryCode, phoneNumber } = item;
   return (
     <>
@@ -18,14 +17,22 @@ const ContactDetails = ({ item}) => {
           <small>{`Country Code: ${countryCode}`}</small>
           <div className='card-actions justify-end'>
             <a href={`mailto:${email} `}>
-              <button className='btn btn-xs m-1 btn-primary' >Send A Message</button>
+              <button className='btn btn-xs m-1 btn-primary'>
+                Send A Message
+              </button>
             </a>
-              <div className="btn-group justify-between">
-
-              <button className='btn btn-xs m-1 btn-primary' onClick={()=>console.log("Edit Work In Progress")}>Edit</button>
-              <button className='btn btn-xs m-1 btn-primary' onClick={()=>console.log("Delete Work In Progress")}>Delete</button>
-              </div>
-
+            <div className='btn-group justify-between'>
+              <button
+                className='btn btn-xs m-1 btn-primary'
+                onClick={() => console.log('Edit Work In Progress')}>
+                Edit
+              </button>
+              <button
+                className='btn btn-xs m-1 btn-primary'
+                onClick={() => console.log('Delete Work In Progress')}>
+                Delete
+              </button>
+            </div>
           </div>
         </div>
       </div>

@@ -1,6 +1,6 @@
 import { useState, useEffect, Fragment } from 'react';
 import ContactDetails from './ContactDetails';
-// import Spinner from './Spinner';
+import Spinner from './Spinner';
 
 const ContactFilter = ({ data, setData }) => {
   const [filterText, setFilterText] = useState('');
@@ -72,7 +72,9 @@ const ContactFilter = ({ data, setData }) => {
 
   return (
     <Fragment>
-      <form onSubmit={(e) => e.preventDefault()} className='flex flex-col items-center'>
+      <form
+        onSubmit={(e) => e.preventDefault()}
+        className='flex flex-col items-center'>
         <input
           type='text'
           // className='p-2 block justify-center bg-primary text-black placeholder-black placeholder-opacity-40'
@@ -81,48 +83,45 @@ const ContactFilter = ({ data, setData }) => {
           onChange={onChange}
         />
         <div>
+          <button
+            className='btn btn-secondary m-3 btn-xs'
+            onClick={() =>
+              matched.length > 0 ? setSearch(true) : setSearch(false)
+            }>
+            Search
+          </button>
 
-        <button
-          className='btn btn-secondary m-3 btn-xs'
-          onClick={() =>
-            matched.length > 0 ? setSearch(true) : setSearch(false)
-          }>
-          Search
-        </button>
-
-        <div className='dropdown dropdown-hover'>
-          <label tabIndex='0' className='btn-xs btn m-1'>
-            Sort
-          </label>
-          <ul
-            tabIndex='0'
-            className='dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52'>
-            <li>
-              <button onClick={() => setIsAscending(true)}>A-Z</button>
-            </li>
-            <li>
-              <button onClick={() => setIsDescending(true)}>Z-A</button>
-            </li>
-            <li>
-              <button onClick={() => setIsCountryCode(true)}>
-                Country Code
-              </button>
-            </li>
-          </ul>
+          <div className='dropdown dropdown-hover'>
+            <label tabIndex='0' className='btn-xs btn m-1'>
+              Sort
+            </label>
+            <ul
+              tabIndex='0'
+              className='dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52'>
+              <li>
+                <button onClick={() => setIsAscending(true)}>A-Z</button>
+              </li>
+              <li>
+                <button onClick={() => setIsDescending(true)}>Z-A</button>
+              </li>
+              <li>
+                <button onClick={() => setIsCountryCode(true)}>
+                  Country Code
+                </button>
+              </li>
+            </ul>
+          </div>
         </div>
-              </div>
       </form>
-      {/* <div className='flex flex-col justify-center items-center'>
-       */}
-      <div className='block m-auto'>
-      <div className='flex flex-col items-center justify-center w-full m-3'>
 
-        {search
-          ? [...matched].map((item) => (
-              <ContactDetails item={item} key={item.id} />
-            ))
-          : data.map((item) => <ContactDetails item={item} key={item.id} />)}
-      </div>
+      <div className='block m-auto'>
+        <div className='flex flex-col items-center justify-center w-full m-3'>
+          {search
+            ? [...matched].map((item) => (
+                <ContactDetails item={item} key={item.id} />
+              ))
+            : data.map((item) => <ContactDetails item={item} key={item.id} />)}
+        </div>
       </div>
     </Fragment>
   );
