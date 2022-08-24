@@ -37,7 +37,8 @@ const ContactForm = ({ data, setData }) => {
       <form
         onSubmit={onSubmit}
         //  className='block sm:flex sm:justify-between sm:items-center sm: w-full'
-        className='flex flex-col items-center'>
+        className='flex flex-col items-center'
+        >
         <h2 className='text-primary m-2'>
           {current ? 'Edit Contact' : 'Add Contact'}
         </h2>

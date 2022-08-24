@@ -2,20 +2,20 @@ import { useState, useEffect, Fragment } from 'react';
 import ContactDetails from './ContactDetails';
 import Spinner from './Spinner';
 
-const ContactFilter = ({ data, setData }) => {
+const ContactFilter = ({ currentContacts}) => {
   const [filterText, setFilterText] = useState('');
   const [matched, setMatched] = useState([]);
   const [search, setSearch] = useState(false);
   const [isAscending, setIsAscending] = useState(false);
   const [isDescending, setIsDescending] = useState(false);
   const [isCountryCode, setIsCountryCode] = useState(false);
-
+console.log("currentcontacts",currentContacts)
   useEffect(() => {
     // handling the search an sort functionality side effects
     // SEARCH FIELDS
     // --------------------------
     if (filterText.length > 0) {
-      let dataArr = data;
+      let dataArr = currentContacts;
       const searchArr = dataArr.filter(
         (item) =>
           item.firstName.toLowerCase() === filterText.toLowerCase() ||
@@ -31,7 +31,7 @@ const ContactFilter = ({ data, setData }) => {
     // SORTING ORDERS
     // --------------------------
     if (isAscending) {
-      let dataArr = data;
+      let dataArr = currentContacts;
       const searchAscArr = dataArr.sort((a, b) =>
         a.lastName > b.lastName ? 1 : b.lastName > a.lastName ? -1 : 0
       );
@@ -39,7 +39,7 @@ const ContactFilter = ({ data, setData }) => {
       setIsAscending(false);
     }
     if (isDescending) {
-      let dataArr = data;
+      let dataArr = currentContacts;
       const searchDescArr = dataArr.sort((a, b) =>
         a.lastName < b.lastName ? 1 : b.lastName < a.lastName ? -1 : 0
       );
@@ -48,7 +48,7 @@ const ContactFilter = ({ data, setData }) => {
     }
 
     if (isCountryCode) {
-      let dataArr = data;
+      let dataArr = currentContacts;
       const searchCountryCodeArr = dataArr.sort((a, b) =>
         a.countryCode > b.countryCode
           ? 1
@@ -120,7 +120,8 @@ const ContactFilter = ({ data, setData }) => {
             ? [...matched].map((item) => (
                 <ContactDetails item={item} key={item.id} />
               ))
-            : data.map((item) => <ContactDetails item={item} key={item.id} />)}
+            : 
+            currentContacts.map((item) => <ContactDetails item={item} key={item.id} />)}
         </div>
       </div>
     </Fragment>

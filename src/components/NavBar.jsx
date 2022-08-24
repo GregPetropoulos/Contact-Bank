@@ -30,6 +30,9 @@ const NavBar = () => {
             <li>
               <Link to='/all-contacts'>All Contacts</Link>
             </li>
+            <li>
+              <Link to='/contact-form'>Add Contact</Link>
+            </li>
           </ul>
         </div>
         <Link to='/' className='btn btn-ghost normal-case text-xl'>

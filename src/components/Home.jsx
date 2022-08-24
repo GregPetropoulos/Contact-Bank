@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import PaginationContacts from './PaginationContacts';
 import Pagination from './Pagination';
 import ContactFilter from './ContactFilter';
 import ContactForm from './ContactForm';
@@ -9,8 +8,9 @@ import ContactForm from './ContactForm';
 const Home = ({ data, setData }) => {
   console.log(data);
 
-  const [currentPage, SetCurrentPage] = useState(1);
-  const [contactsPerPage, SetContactsPerPage] = useState(50);
+// Handling the pages state
+const [currentPage, SetCurrentPage] = useState(1);
+const [contactsPerPage] = useState(100);
 const dataArr=data
 const indexOfLastContact =currentPage*contactsPerPage;
 const indexOfFirstContact=indexOfLastContact-contactsPerPage;
@@ -20,11 +20,9 @@ const paginate=(pageNumber)=> SetCurrentPage(pageNumber)
   return (
     <div className='container mx-auto'>
       <div className='flex flex-col justify-center items-center'>
-        <ContactForm data={data} setData={setData} />
-        <ContactFilter data={data} setData={setData} />
-      </div>
-      <PaginationContacts currentContacts={currentContacts}/>
+      <ContactFilter currentContacts={currentContacts}/>
       <Pagination contactsPerPage={contactsPerPage} totalContacts={data.length} paginate={paginate}/>
+      </div>
     </div>
   );
 };

@@ -1,5 +1,3 @@
-
-
 const Pagination = ({ contactsPerPage, totalContacts, paginate }) => {
   const pageNumbers = [];
 
@@ -8,12 +6,14 @@ const Pagination = ({ contactsPerPage, totalContacts, paginate }) => {
   }
 
   return (
-    <nav>
-      <ul className='flex justify-between'>
+    <nav className='navbar'>
+      <ul className='flex justify-center items-center flex-wrap '>
         {pageNumbers.map((number) => (
           <li key={number} className='btn btn-group m-1'>
-            <a to='!#' alt='pages' className=''>
-              <button className='btn btn-xs m-1' onClick={() => paginate(number)}>
+            <a href='!#' alt='pagination'>
+              <button
+                className='btn btn-xs m-1'
+                onClick={() => paginate(number)}>
                 {number}
               </button>
             </a>

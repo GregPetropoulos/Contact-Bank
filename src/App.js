@@ -1,9 +1,16 @@
+// Author: Greg Petropoulos
+// 8.22.22-8.25.22
+// Contact Bank 
+
+
+
 import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './components/Home';
 import Navbar from './components/NavBar';
 import Footer from './components/Footer'
 import AllContacts from './components/AllContacts';
+import ContactForm from './components/ContactForm';
 
 import jsonData from './data/contacts.json' 
 
@@ -17,6 +24,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Home data={data} setData={setData}/>} />
         <Route path='/all-contacts' element={<AllContacts data={data}/>} />
+        <Route path='/contact-form' element={<ContactForm data={data}/>} />
       </Routes>
       <Footer data={data}/>
     </Router>

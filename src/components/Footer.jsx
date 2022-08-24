@@ -2,7 +2,7 @@
 import { Link } from 'react-router-dom';
 
 
-const Footer = ({ data }) => {
+const Footer = () => {
   return (
     <div className='flex justify-center m-3 w-full'>
       <div className='btn-group'>
