@@ -7,7 +7,7 @@ console.log("data",data)
 const dataAll=data
   return (<>
          {dataAll.map(item=> (
-        <div className='card w-96 bg-base-100 shadow-xl'>
+        <div className='card w-96 bg-base-100 shadow-xl'key={item.id}>
       <div className='card-body'>
         <h2 className='card-title'>
           {item.firstName} {item.lastName}

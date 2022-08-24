@@ -1,9 +1,12 @@
 import React from 'react';
 
 const ContactDetails = ({ item }) => {
+  // console.log("item",item)
   const { firstName, lastName, email, countryCode, phoneNumber } = item;
   return (
-    <div className='card w-96 bg-base-100 shadow-xl'>
+    <div className='flex justify-around m-5'>
+
+    <div className='card w-96 bg-secondary shadow-xl'>
       <div className='card-body'>
         <h2 className='card-title'>
           {firstName} {lastName}
@@ -18,6 +21,8 @@ const ContactDetails = ({ item }) => {
         </div>
       </div>
     </div>
+    </div>
+
   );
 };
 

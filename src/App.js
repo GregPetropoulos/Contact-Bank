@@ -15,7 +15,7 @@ function App() {
     <Router>
         <Navbar />
       <Routes>
-        <Route path='/' element={<Home data={data} />} />
+        <Route path='/' element={<Home data={data} setData={setData}/>} />
         <Route path='/all-contacts' element={<AllContacts data={data}/>} />
       </Routes>
       <Footer/>

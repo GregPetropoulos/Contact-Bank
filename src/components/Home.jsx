@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import ContactFilter from './ContactFilter';
 import ContactForm from './ContactForm';
-import Contact from './Contact'
+// import Contact from './Contact'
 
 
-const Home = ({ data }) => {
+const Home = ({ data,setData}) => {
   console.log(data);
 
   return (
@@ -13,8 +13,8 @@ const Home = ({ data }) => {
         <ContactForm />
       </div>
       <div>
-        <ContactFilter  data={data}/>
-        <Contact data={data}/>
+        <ContactFilter  data={data} setData={setData}/>
+
       </div>
 
       <div>{}</div>

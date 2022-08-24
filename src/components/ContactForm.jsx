@@ -6,9 +6,10 @@ const ContactForm = () => {
     console.log('onchange')
   }
   return (
-    <form onSubmit ={(e)=> e.preventDefault()}>
-            <input type ='text' placeholder='Filter Contacts...' onChange={onChange}/>
-        </form>
+    <h1>Form</h1>
+    // <form onSubmit ={(e)=> e.preventDefault()}>
+    //         <input type ='text'/>
+    //     </form>
   )
 }
 
