@@ -18,7 +18,7 @@ const paginate=(pageNumber)=> SetCurrentPage(pageNumber)
   return (
     <div className='container mx-auto'>
       <div className='flex flex-col justify-center items-center'>
-      <ContactFilter currentContacts={currentContacts}/>
+      <ContactFilter setData={setData} data={data} currentContacts={currentContacts}/>
       <Pagination contactsPerPage={contactsPerPage} totalContacts={data.length} paginate={paginate}/>
       <Footer/>
       </div>

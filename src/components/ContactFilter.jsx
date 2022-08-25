@@ -2,7 +2,7 @@ import { useState, useEffect, Fragment } from 'react';
 import ContactDetails from './ContactDetails';
 import Spinner from './Spinner';
 
-const ContactFilter = ({ currentContacts}) => {
+const ContactFilter = ({ setData, data,currentContacts}) => {
   const [filterText, setFilterText] = useState('');
   const [matched, setMatched] = useState([]);
   const [search, setSearch] = useState(false);
@@ -116,12 +116,13 @@ console.log("currentcontacts",currentContacts)
 
       <div className='block m-auto sm:flex-col sm:flex '>
         <div className='flex flex-col items-center justify-center w-full m-3 sm:flex-wrap sm:flex-row '>
+          {/* Show the searched user or show all the users */}
           {search
             ? [...matched].map((item) => (
-                <ContactDetails item={item} key={item.id} />
+                <ContactDetails setData={setData} data={data} item={item} key={item.id} />
               ))
             : 
-            currentContacts.map((item) => <ContactDetails item={item} key={item.id} />)}
+            currentContacts.map((item) => <ContactDetails setData={setData}  data={data} item={item} key={item.id} />)}
         </div>
       </div>
     </Fragment>

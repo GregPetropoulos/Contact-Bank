@@ -1,7 +1,9 @@
 import React from 'react';
+import { toast } from 'react-toastify';
+import Modal from './Modal';
 
-const ContactDetails = ({ item }) => {
-  const { firstName, lastName, email, countryCode, phoneNumber } = item;
+const ContactDetails = ({ setData, data, item }) => {
+  const { id, firstName, lastName, email, countryCode, phoneNumber } = item;
   return (
     <>
       <div className='card card-compact bg-secondary shadow-xl my-3 sm:m-4'>
@@ -22,14 +24,15 @@ const ContactDetails = ({ item }) => {
               </button>
             </a>
             <div className='btn-group justify-between'>
+              <Modal setData={setData} data={data} item={item} key={item.id} />
+
               <button
                 className='btn btn-xs m-1 btn-primary'
-                onClick={() => console.log('Edit Work In Progress')}>
-                Edit
-              </button>
-              <button
-                className='btn btn-xs m-1 btn-primary'
-                onClick={() => console.log('Delete Work In Progress')}>
+                // in-line Delete and Toast functionality
+                onClick={() => {
+                  toast.error('Contact Deleted');
+                  setData(data.filter((item) => item.id !== id));
+                }}>
                 Delete
               </button>
             </div>
