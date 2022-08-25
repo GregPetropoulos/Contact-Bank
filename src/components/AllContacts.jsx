@@ -1,15 +1,13 @@
-import React from 'react'
+import React from 'react';
 import Footer from './Footer';
 import AllContactFilter from './AllContactFilter';
 
-const AllContacts = ({data}) => {
-
-
-const dataAll=data
+const AllContacts = ({ data }) => {
+  const dataAll = data;
   return (
-  <>
-          <AllContactFilter data={data} />
-         {/* {dataAll.map(item=> (
+    <>
+      <AllContactFilter data={data} />
+      {/* {dataAll.map(item=> (
            <div className='card w-96 bg-base-100 shadow-xl'key={item.id}>
       <div className='card-body'>
         <h2 className='card-title'>
@@ -25,14 +23,9 @@ const dataAll=data
         </div>
       </div>
     </div>))} */}
-    <Footer/>
-  </>
-
-  
-          
-          
+      <Footer />
+    </>
   );
-  
-}
+};
 
-export default AllContacts
+export default AllContacts;

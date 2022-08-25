@@ -2,16 +2,13 @@ import { useState, useEffect, Fragment } from 'react';
 import ContactDetails from './ContactDetails';
 import Spinner from './Spinner';
 
-const ContactFilter = ({ setData, data,currentContacts}) => {
+const ContactFilter = ({ setData, data, currentContacts }) => {
   const [filterText, setFilterText] = useState('');
   const [matched, setMatched] = useState([]);
   const [search, setSearch] = useState(false);
   const [isAscending, setIsAscending] = useState(false);
   const [isDescending, setIsDescending] = useState(false);
   const [isCountryCode, setIsCountryCode] = useState(false);
-console.log("currentcontacts",currentContacts)
-console.log("matched check",matched)
-
 
   useEffect(() => {
     // handling the search an sort functionality side effects
@@ -78,9 +75,9 @@ console.log("matched check",matched)
       <form
         onSubmit={(e) => e.preventDefault()}
         className='flex flex-col justify-center items-center'>
-          <h1 className='text-sm text-center leading-relaxed m-3'>
-            Search by first name, last name or email
-            </h1>
+        <h1 className='text-sm text-center leading-relaxed m-3'>
+          Search by first name, last name or email
+        </h1>
         <input
           type='text'
           className='p-2 block bg-primary text-black placeholder-black placeholder-opacity-40'
@@ -104,10 +101,14 @@ console.log("matched check",matched)
               tabIndex='0'
               className='dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52'>
               <li>
-                <button onClick={() => setIsAscending(true)}>Last Name A-Z</button>
+                <button onClick={() => setIsAscending(true)}>
+                  Last Name A-Z
+                </button>
               </li>
               <li>
-                <button onClick={() => setIsDescending(true)}>Last Name Z-A</button>
+                <button onClick={() => setIsDescending(true)}>
+                  Last Name Z-A
+                </button>
               </li>
               <li>
                 <button onClick={() => setIsCountryCode(true)}>
@@ -122,9 +123,23 @@ console.log("matched check",matched)
       <div className='block m-auto sm:flex-col sm:flex '>
         <div className='flex flex-col items-center justify-center w-full m-3 sm:flex-wrap sm:flex-row '>
           {/* Show the searched user or show all the users */}
-          {search? matched.map(item=> <ContactDetails setData={setData} data={data} item={item}key={item.id} />)
-          : 
-            currentContacts.map((item) => <ContactDetails setData={setData}  data={data} item={item} key={item.id} />)}
+          {search
+            ? matched.map((item) => (
+                <ContactDetails
+                  setData={setData}
+                  data={data}
+                  item={item}
+                  key={item.id}
+                />
+              ))
+            : currentContacts.map((item) => (
+                <ContactDetails
+                  setData={setData}
+                  data={data}
+                  item={item}
+                  key={item.id}
+                />
+              ))}
         </div>
       </div>
     </Fragment>

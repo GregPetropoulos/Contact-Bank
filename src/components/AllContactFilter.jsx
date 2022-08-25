@@ -1,22 +1,21 @@
-import {useState} from 'react';
+import { useState } from 'react';
 
-const AllContactFilter = ({data}) => {
-const [all, setAll]=useState('')
-const[foundContact, setFoundContact]=useState([])
-console.log(foundContact);
-console.log(foundContact.length)
-const{firstName, lastName, email,phoneNumber}=foundContact
+const AllContactFilter = ({ data }) => {
+  const [all, setAll] = useState('');
+  const [foundContact, setFoundContact] = useState([]);
+  // console.log(foundContact);
+  // console.log(foundContact.length)
+  const { firstName, lastName, email, phoneNumber } = foundContact;
 
-    const onChange = (e) => {
-        if (e.target.value !== '') {
-          const targetValue = e.target.value.trim();
-          setAll(targetValue);
-        } else {
-          setAll('');
-        }
-      };
-const findOne =()=>{
-    console.log("click")
+  const onChange = (e) => {
+    if (e.target.value !== '') {
+      const targetValue = e.target.value.trim();
+      setAll(targetValue);
+    } else {
+      setAll('');
+    }
+  };
+  const findOne = () => {
     let dataArr = data;
     const searchArr = dataArr.filter(
       (item) =>
@@ -25,19 +24,20 @@ const findOne =()=>{
         item.email.toLowerCase() === all.toLowerCase()
     );
     setFoundContact(searchArr);
-}
+  };
   return (
     <>
-    <div className='block justify-center '>
+      <div className='block justify-center '>
         Search All
-        <input 
+        <input
           type='text'
           className='m-2 p-2 block bg-accent text-black placeholder-black placeholder-opacity-40'
           placeholder='Search All Contacts'
           onChange={onChange}
-          />
-        <button className='m-3 btn btn-xs btn-primary'
-        onClick={findOne}>Search</button>
+        />
+        <button className='m-3 btn btn-xs btn-primary' onClick={findOne}>
+          Search
+        </button>
         <p>{firstName}</p>
         {/* {foundContact.length>0&&(<ul>
             <li>
@@ -53,10 +53,8 @@ const findOne =()=>{
                     {phoneNumber}
                 </li>
                 </ul>)} */}
-        
-    </div>
-        
-        </>
+      </div>
+    </>
   );
 };
 
