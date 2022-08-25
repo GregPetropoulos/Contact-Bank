@@ -1,9 +1,7 @@
 import { useState } from 'react';
 import Pagination from './Pagination';
 import ContactFilter from './ContactFilter';
-import ContactForm from './ContactForm';
-// import Contact from './Contact'
-
+import Footer from './Footer'
 
 const Home = ({ data, setData }) => {
   console.log(data);
@@ -22,6 +20,7 @@ const paginate=(pageNumber)=> SetCurrentPage(pageNumber)
       <div className='flex flex-col justify-center items-center'>
       <ContactFilter currentContacts={currentContacts}/>
       <Pagination contactsPerPage={contactsPerPage} totalContacts={data.length} paginate={paginate}/>
+      <Footer/>
       </div>
     </div>
   );

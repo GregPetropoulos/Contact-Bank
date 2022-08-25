@@ -6,7 +6,7 @@ const Pagination = ({ contactsPerPage, totalContacts, paginate }) => {
   }
 
   return (
-    <nav className='navbar'>
+    <nav className='navbar justify-center'>
       <ul className='flex justify-center items-center flex-wrap '>
         {pageNumbers.map((number) => (
           <li key={number} className='btn btn-group m-1'>

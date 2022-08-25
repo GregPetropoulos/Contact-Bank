@@ -1,5 +1,5 @@
 import React from 'react'
-
+import Footer from './Footer';
 
 const AllContacts = ({data}) => {
 
@@ -22,6 +22,7 @@ const dataAll=data
         </div>
       </div>
     </div>))}
+    <Footer/>
   </>
 
   

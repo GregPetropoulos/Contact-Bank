@@ -114,8 +114,8 @@ console.log("currentcontacts",currentContacts)
         </div>
       </form>
 
-      <div className='block m-auto'>
-        <div className='flex flex-col items-center justify-center w-full m-3'>
+      <div className='block m-auto sm:flex-col sm:flex '>
+        <div className='flex flex-col items-center justify-center w-full m-3 sm:flex-wrap sm:flex-row '>
           {search
             ? [...matched].map((item) => (
                 <ContactDetails item={item} key={item.id} />

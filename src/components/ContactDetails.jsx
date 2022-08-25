@@ -1,10 +1,10 @@
 import React from 'react';
 
-const ContactDetails = ({ item, setData }) => {
+const ContactDetails = ({ item }) => {
   const { firstName, lastName, email, countryCode, phoneNumber } = item;
   return (
     <>
-      <div className='card bg-secondary shadow-xl m-3'>
+      <div className='card card-compact bg-secondary shadow-xl my-3 sm:m-4'>
         <div className='card-body'>
           <h2 className='card-title'>
             {firstName} {lastName}

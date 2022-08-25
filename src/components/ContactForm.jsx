@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { toast } from 'react-toastify';
 
 const initialContact = {
   id: 0,
@@ -9,17 +10,16 @@ const initialContact = {
   countryCode: ''
 };
 const ContactForm = ({ data, setData }) => {
-  const [current, setCurrent] = useState();
+  const [current, setCurrent] = useState('');
   const [contact, setContact] = useState(initialContact);
-  const [toast, setToast] = useState(false);
   //* de-structure contact to use in the form below
-  const { firstName, lastName, email, phoneNumber, countryCode } = contact;
+  const { id,firstName, lastName, email, phoneNumber, countryCode } = contact;
 
   //*Locate max Id for correct id number to add to new contact
+  const idNum = data.map((item) => item.id);
+  let max = Math.max(...idNum);
 
   const onChange = (e) => {
-    const idNum = data.map((item) => item.id);
-    let max = Math.max(...idNum);
     setContact((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
@@ -27,18 +27,23 @@ const ContactForm = ({ data, setData }) => {
     }));
   };
 
+
   const onSubmit = (e) => {
     e.preventDefault();
     // Adding one contact to state
     setData((prev) => [...prev, contact]);
+    setContact(initialContact);
+    toast.success("Contact Added")
   };
+
+  console.log("was data added",data)
   return (
     <>
+
       <form
         onSubmit={onSubmit}
         //  className='block sm:flex sm:justify-between sm:items-center sm: w-full'
-        className='flex flex-col items-center'
-        >
+        className='flex flex-col items-center w-screen'>
         <h2 className='text-primary m-2'>
           {current ? 'Edit Contact' : 'Add Contact'}
         </h2>
@@ -84,7 +89,7 @@ const ContactForm = ({ data, setData }) => {
           value={countryCode}
           onChange={onChange}
         />
-        <button className='btn btn-xs btn-accent m-2'>Submit</button>
+        <button className='btn btn-xs btn-accent m-2 sm:btn-md'>Submit</button>
       </form>
     </>
   );
