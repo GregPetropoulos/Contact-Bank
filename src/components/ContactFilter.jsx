@@ -10,12 +10,15 @@ const ContactFilter = ({ setData, data,currentContacts}) => {
   const [isDescending, setIsDescending] = useState(false);
   const [isCountryCode, setIsCountryCode] = useState(false);
 console.log("currentcontacts",currentContacts)
+console.log("matched check",matched)
+
+
   useEffect(() => {
     // handling the search an sort functionality side effects
     // SEARCH FIELDS
     // --------------------------
     if (filterText.length > 0) {
-      let dataArr = currentContacts;
+      let dataArr = data;
       const searchArr = dataArr.filter(
         (item) =>
           item.firstName.toLowerCase() === filterText.toLowerCase() ||
@@ -24,7 +27,7 @@ console.log("currentcontacts",currentContacts)
       );
       setMatched(searchArr);
     } else {
-      // setMatched('');
+      setMatched('');
       setSearch(false);
     }
 
@@ -74,10 +77,12 @@ console.log("currentcontacts",currentContacts)
     <Fragment>
       <form
         onSubmit={(e) => e.preventDefault()}
-        className='flex flex-col items-center'>
+        className='flex flex-col justify-center items-center'>
+          <h1 className='text-sm text-center leading-relaxed m-3'>
+            Search by first name, last name or email
+            </h1>
         <input
           type='text'
-          // className='p-2 block justify-center bg-primary text-black placeholder-black placeholder-opacity-40'
           className='p-2 block bg-primary text-black placeholder-black placeholder-opacity-40'
           placeholder='Search Contacts...'
           onChange={onChange}
@@ -92,17 +97,17 @@ console.log("currentcontacts",currentContacts)
           </button>
 
           <div className='dropdown dropdown-hover'>
-            <label tabIndex='0' className='btn-xs btn m-1'>
+            <label tabIndex='0' className='btn-xs btn-secondary btn m-1'>
               Sort
             </label>
             <ul
               tabIndex='0'
               className='dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52'>
               <li>
-                <button onClick={() => setIsAscending(true)}>A-Z</button>
+                <button onClick={() => setIsAscending(true)}>Last Name A-Z</button>
               </li>
               <li>
-                <button onClick={() => setIsDescending(true)}>Z-A</button>
+                <button onClick={() => setIsDescending(true)}>Last Name Z-A</button>
               </li>
               <li>
                 <button onClick={() => setIsCountryCode(true)}>
@@ -117,11 +122,8 @@ console.log("currentcontacts",currentContacts)
       <div className='block m-auto sm:flex-col sm:flex '>
         <div className='flex flex-col items-center justify-center w-full m-3 sm:flex-wrap sm:flex-row '>
           {/* Show the searched user or show all the users */}
-          {search
-            ? [...matched].map((item) => (
-                <ContactDetails setData={setData} data={data} item={item} key={item.id} />
-              ))
-            : 
+          {search? matched.map(item=> <ContactDetails setData={setData} data={data} item={item}key={item.id} />)
+          : 
             currentContacts.map((item) => <ContactDetails setData={setData}  data={data} item={item} key={item.id} />)}
         </div>
       </div>

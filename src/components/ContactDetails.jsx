@@ -4,8 +4,10 @@ import Modal from './Modal';
 
 const ContactDetails = ({ setData, data, item }) => {
   const { id, firstName, lastName, email, countryCode, phoneNumber } = item;
+
   return (
     <>
+      {/* // Not matched cards per page  */}
       <div className='card card-compact bg-secondary shadow-xl my-3 sm:m-4'>
         <div className='card-body'>
           <h2 className='card-title'>

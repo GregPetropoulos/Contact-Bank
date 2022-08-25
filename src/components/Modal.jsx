@@ -5,14 +5,12 @@ const Modal = ({ setData, data, item }) => {
   const [showModal, setShowModal] = useState(false);
   //   const { id, firstName, lastName, email, countryCode, phoneNumber } = item;
 
-  const [updateContact, setUpdateContact] = useState('');
   // Place item in the state for editing via form
   const [updateInput, setUpdateInput] = useState(item);
 
   // Destructure the state and use these values for the form value
   const { id, firstName, lastName, email, countryCode, phoneNumber } =
     updateInput;
-  console.log('updatedInput', updateInput);
 
   const onChange = (e) => {
     setUpdateInput((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -41,11 +39,11 @@ const Modal = ({ setData, data, item }) => {
         <>
           <div className='transition ease-in-out delay-1000'>
             <div className='  rounded w-[250px] h-[430px]  bg-primary-focus flex flex-col justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none  '>
+              
+              
               {/* FORM */}
-              {/* <div className='relative p-6 flex'> */}
               <form
                 onSubmit={onSubmit}
-                //  className='block sm:flex sm:justify-between sm:items-center sm: w-full'
                 className='flex flex-col items-center'>
                 <h1 className='text-lg font-bold '>{`Edit ${firstName} ${lastName} `}</h1>
                 <input
