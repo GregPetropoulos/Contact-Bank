@@ -35,14 +35,14 @@ const Modal = ({ setData, data, item }) => {
         onClick={() => setShowModal(!showModal)}>
         Edit
       </button>
-      {showModal ? (
+      {data!==null&&showModal ? (
         <>
           <div className='transition ease-in-out delay-1000'>
             <div className='  rounded w-[250px] h-[430px]  bg-primary-focus flex flex-col justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none  '>
               
               
-              {/* FORM */}
-              <form
+              {/* FORM--Can not have a from tag inside of form tag this must  be a div tag*/}
+              <div
                 onSubmit={onSubmit}
                 className='flex flex-col items-center'>
                 <h1 className='text-lg font-bold '>{`Edit ${firstName} ${lastName} `}</h1>
@@ -100,7 +100,7 @@ const Modal = ({ setData, data, item }) => {
                     Close
                   </button>
                 </div>
-              </form>
+              </div>
             </div>
           </div>
         </>

@@ -13,7 +13,7 @@ const ContactForm = ({ data, setData }) => {
   const [current, setCurrent] = useState('');
   const [contact, setContact] = useState(initialContact);
   //* de-structure contact to use in the form below
-  const { id,firstName, lastName, email, phoneNumber, countryCode } = contact;
+  const { id, firstName, lastName, email, phoneNumber, countryCode } = contact;
 
   //*Locate max Id for correct id number to add to new contact
   const idNum = data.map((item) => item.id);
@@ -27,19 +27,16 @@ const ContactForm = ({ data, setData }) => {
     }));
   };
 
-
   const onSubmit = (e) => {
     e.preventDefault();
     // Adding one contact to state
     setData((prev) => [...prev, contact]);
     setContact(initialContact);
-    toast.success("Contact Added")
+    toast.success('Contact Added');
   };
 
-  console.log("was data added",data)
   return (
     <>
-
       <form
         onSubmit={onSubmit}
         //  className='block sm:flex sm:justify-between sm:items-center sm: w-full'

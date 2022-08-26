@@ -1,6 +1,6 @@
 import { useState, useEffect, Fragment } from 'react';
 import ContactDetails from './ContactDetails';
-import Spinner from './Spinner';
+
 
 const ContactFilter = ({ setData, data, currentContacts }) => {
   const [filterText, setFilterText] = useState('');
@@ -59,6 +59,14 @@ const ContactFilter = ({ setData, data, currentContacts }) => {
       setMatched(searchCountryCodeArr);
       setIsCountryCode(false);
     }
+// Clean up unmounting
+    return () =>
+    {
+      setIsAscending(false)
+      setIsDescending(false)
+      setIsCountryCode(false)
+
+    }
   }, [filterText, search, isAscending, isDescending, isCountryCode]);
 
   const onChange = (e) => {
@@ -72,15 +80,13 @@ const ContactFilter = ({ setData, data, currentContacts }) => {
 
   return (
     <Fragment>
-      <form
-        onSubmit={(e) => e.preventDefault()}
-        className='flex flex-col justify-center items-center'>
+      <form onSubmit={(e) => e.preventDefault()}>
         <h1 className='text-sm text-center leading-relaxed m-3'>
           Search by first name, last name or email
         </h1>
         <input
           type='text'
-          className='p-2 block bg-primary text-black placeholder-black placeholder-opacity-40'
+          className='p-2 block bg-primary text-black placeholder-black placeholder-opacity-40 input input-bordered input-secondary w-full max-w-xs'
           placeholder='Search Contacts...'
           onChange={onChange}
         />
@@ -118,12 +124,9 @@ const ContactFilter = ({ setData, data, currentContacts }) => {
             </ul>
           </div>
         </div>
-      </form>
-
-      <div className='block m-auto sm:flex-col sm:flex '>
-        <div className='flex flex-col items-center justify-center w-full m-3 sm:flex-wrap sm:flex-row '>
+        <div className='flex flex-col items-center justify-center m-3 sm:flex-wrap sm:flex-row '>
           {/* Show the searched user or show all the users */}
-          {search
+          {data.length>0?(search
             ? matched.map((item) => (
                 <ContactDetails
                   setData={setData}
@@ -139,9 +142,10 @@ const ContactFilter = ({ setData, data, currentContacts }) => {
                   item={item}
                   key={item.id}
                 />
-              ))}
+              ))):<h1>No Data to Search</h1>
+            }
         </div>
-      </div>
+      </form>
     </Fragment>
   );
 };
