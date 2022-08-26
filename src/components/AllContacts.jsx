@@ -4,7 +4,7 @@ import AllContactFilter from './AllContactFilter';
 
 const AllContacts = ({ data }) => {
   return (
-    <div className='container mx-auto'>
+    <div className=''>
       <AllContactFilter data={data} />
    
       <Footer />

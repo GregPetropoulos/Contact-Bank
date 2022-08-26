@@ -33,28 +33,25 @@ const AllContactFilter = ({ data }) => {
     setFoundContact(searchArr);
   };
   return (
-    <>
-      <div className='block justify-center'>
-        <h1 className='m-4'>
-          Search All
-          </h1>
+    <div className='flex flex-col justify-center items-center'>
+      <div className='flex justify-center flex-wrap'>
         <input
           type='text'
-          className='m-4 p-2 block bg-accent text-black placeholder-black placeholder-opacity-40'
+          className=' p-2 block bg-accent text-black placeholder-black placeholder-opacity-40'
           placeholder='Search All Contacts'
           onChange={onChange}
         />
-        <button className='m-4 btn btn-xs btn-primary' onClick={findOne}>
+        <button className=' ml-3 mt-3 btn btn-xs btn-primary' onClick={findOne}>
           Search
         </button>
       </div>
       {foundContact.length > 0 ? (
         foundContact.map((item) => (
           <div
-            className='card card-compact bg-secondary-focus text-primary w-screen shadow-xl my-3 sm:m-4'
+            className=' card card-compact bg-secondary-focus text-primary w-1/2 shadow-xl my-3 sm:m-3'
             key={item.id}>
             <div className='card-body'>
-              <h2 className='flex flex-col card-title'>
+              <h2 className='flex flex-col items-start card-title'>
                 <span>{`First Name: ${item.firstName}`}</span>
                 <span>{`Last Name: ${item.lastName} `}</span>
               </h2>
@@ -70,7 +67,7 @@ const AllContactFilter = ({ data }) => {
       ) : (
         <h1>No User Found</h1>
       )}
-    </>
+    </div>
   );
 };
 
