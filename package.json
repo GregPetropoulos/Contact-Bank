@@ -13,5 +13,27 @@
   "devDependencies": {
     "concurrently": "^7.3.0",
     "nodemon": "^2.0.19"
-  }
+  },
+  "scripts": {
+    "start": "node server.js",
+    "server": "nodemon server.js",
+    "client": "npm start --prefix client",
+    "clientinstall": "npm install --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+  },
+  "name": "contact-bank",
+  "version": "1.0.0",
+  "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GregPetropoulos/Contact-Bank.git"
+  },
+  "author": "Greg Petropoulos",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GregPetropoulos/Contact-Bank/issues"
+  },
+  "homepage": "https://github.com/GregPetropoulos/Contact-Bank#readme",
+  "description": ""
 }
