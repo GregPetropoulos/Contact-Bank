@@ -5,7 +5,14 @@ const ContactSchema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'users'
   },
-  name: {
+  id: { 
+    type: Number
+   },
+  firstName: {
+    type: String,
+    required: true
+  },
+  lastName: {
     type: String,
     required: true
   },
@@ -13,35 +20,35 @@ const ContactSchema = mongoose.Schema({
     type: String,
     required: true
   },
-  phone: {
+  phoneNumber: {
     type: String
   },
-  countryCode:{
-    type:String
+  countryCode: {
+    type: String
   },
-//   type: {
-//     type: String,
-//     default: 'personal'
-//   },
-//   notes: {
-//     type: String
-//   },
-//   website: {
-//     type: String
-//   },
-//   birthday: {
-//     // type: Date,
-//     // trim: true,
-//     day: {
-//       type: Number
-//     },
-//     month: {
-//       type: Number
-//     },
-//     year: {
-//       type: Number
-//     }
-//   },
+  //   type: {
+  //     type: String,
+  //     default: 'personal'
+  //   },
+  //   notes: {
+  //     type: String
+  //   },
+  //   website: {
+  //     type: String
+  //   },
+    // birthday: {
+    //   type: Date,
+    //   trim: true,
+    //   day: {
+    //     type: Number
+    //   },
+    //   month: {
+    //     type: Number
+    //   },
+    //   year: {
+    //     type: Number
+    //   }
+    // },
   date: {
     type: Date,
     default: Date.now()

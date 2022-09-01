@@ -1,6 +1,14 @@
 // *SERVER
 const express = require('express');
 const path = require('path');
+require('dotenv').config();
+
+// Connect MongoDB
+const connectDB=require('./config/db')
+connectDB()
+
+// const seedConnectDB=require('./seed/seeds')
+// seedConnectDB()
 
 const app = express();
 //*MIDDLEWARE
