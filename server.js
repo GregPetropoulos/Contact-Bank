@@ -25,6 +25,7 @@ app.use(express.json({ extended: false }));
 // *CONTACT ROUTE
 app.use('/api/contacts', require('./routes/contact'));
 
+
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => console.log(`Server started port ${PORT}`));
