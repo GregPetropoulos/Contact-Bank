@@ -1,8 +1,15 @@
 import { useState, useEffect, Fragment } from 'react';
 import ContactDetails from './ContactDetails';
-
+import {useContacts, getAllContacts} from '../context/contact/contactState';
 
 const ContactFilter = ({ setData, data, currentContacts }) => {
+  //* CONTEXTAPI
+  //Bring in custom hook
+  const [contactState,contactDispatch]=useContacts()
+//destructure setter of custom hook to use state variable through out component
+const {contacts}=contactState
+console.log("contactState",contactState)
+
   const [filterText, setFilterText] = useState('');
   const [matched, setMatched] = useState([]);
   const [search, setSearch] = useState(false);
@@ -10,11 +17,16 @@ const ContactFilter = ({ setData, data, currentContacts }) => {
   const [isDescending, setIsDescending] = useState(false);
   const [isCountryCode, setIsCountryCode] = useState(false);
 
+useEffect(()=> {
+getAllContacts(contactDispatch)
+},[contactDispatch])
+
   useEffect(() => {
     // handling the search an sort functionality side effects
     // SEARCH FIELDS
     // --------------------------
     if (filterText.length > 0) {
+      // let dataArr = contacts;//TODO
       let dataArr = data;
       const searchArr = dataArr.filter(
         (item) =>

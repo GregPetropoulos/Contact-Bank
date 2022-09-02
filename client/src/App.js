@@ -8,7 +8,7 @@ import Home from './components/Home';
 import Navbar from './components/NavBar';
 import AllContacts from './components/AllContacts';
 import ContactForm from './components/ContactForm';
-
+import ContactState from './context/contact/contactState'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -20,6 +20,7 @@ function App() {
 
   return (
     <>
+    <ContactState>
       <Router>
         <Navbar />
         <Routes>
@@ -32,6 +33,8 @@ function App() {
         </Routes>
       </Router>
       <ToastContainer />
+    </ContactState>
+
     </>
   );
 }

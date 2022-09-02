@@ -1,9 +1,13 @@
-import { useState } from 'react';
+import { useState} from 'react';
 import Pagination from './Pagination';
 import ContactFilter from './ContactFilter';
 import Footer from './Footer';
 
+
+
 const Home = ({ data, setData }) => {
+
+
   // Handling the pages state
   const [currentPage, SetCurrentPage] = useState(1);
   const [contactsPerPage] = useState(100);
