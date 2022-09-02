@@ -1,13 +1,13 @@
 import { useState, useEffect, Fragment } from 'react';
 import ContactDetails from './ContactDetails';
-import {useContacts, getAllContacts} from '../context/contact/contactState';
+import {useContacts, getAllContacts} from '../context/contact/ContactState';
 
 const ContactFilter = ({ setData, data, currentContacts }) => {
   //* CONTEXTAPI
   //Bring in custom hook
   const [contactState,contactDispatch]=useContacts()
 //destructure setter of custom hook to use state variable through out component
-const {contacts}=contactState
+// const {contacts}=contactState
 console.log("contactState",contactState)
 
   const [filterText, setFilterText] = useState('');
