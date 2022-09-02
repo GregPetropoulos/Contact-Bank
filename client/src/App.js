@@ -17,7 +17,7 @@ import jsonData from './data/contacts.json';
 
 function App() {
   const [data, setData] = useState(jsonData);
-
+console.log("local APPJS DATA",data)
   return (
     <>
     <ContactState>
@@ -25,10 +25,10 @@ function App() {
         <Navbar />
         <Routes>
           <Route path='/' element={<Home data={data} setData={setData} />} />
-          <Route path='/all-contacts' element={<AllContacts data={data} />} />
+          {/* <Route path='/all-contacts' element={<AllContacts/>} /> */}
           <Route
             path='/contact-form'
-            element={<ContactForm setData={setData} data={data} />}
+            element={<ContactForm />}
           />
         </Routes>
       </Router>

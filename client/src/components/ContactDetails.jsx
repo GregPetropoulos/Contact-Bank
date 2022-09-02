@@ -1,7 +1,8 @@
 import React from 'react';
 import { toast } from 'react-toastify';
 import Modal from './Modal';
-
+import contactContext
+ from '../context/contact/contactContext';
 const ContactDetails = ({ setData, data, item }) => {
   const { id, firstName, lastName, email, countryCode, phoneNumber } = item;
 
@@ -35,7 +36,7 @@ const ContactDetails = ({ setData, data, item }) => {
                   toast.error('Contact Deleted');
                   setData(data.filter((item) => item.id !== id));
                 }}>
-                Delete
+                Delete Out
               </button>
             </div>
           </div>

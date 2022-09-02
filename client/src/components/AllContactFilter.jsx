@@ -1,37 +1,47 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { addContact, useContacts } from '../context/contact/ContactState';
+// !STOPPED HERE NEED TO ADD IN CONTEXTAPI FOR ADDING A CONTACT
 
-const AllContactFilter = ({ data }) => {
-  const [all, setAll] = useState('');
-  const [foundContact, setFoundContact] = useState([
-    {
-      id: 0,
-      firstName: '',
-      lastName: '',
-      email: '',
-      phoneNumber: '',
-      countryCode: ''
-    }
-  ]);
+const initialContact = {
+  id: 0,
+  firstName: '',
+  lastName: '',
+  email: '',
+  phoneNumber: '',
+  countryCode: ''
+};
 
+const AllContactFilter = () => {
+  // *CONTEXTAPI
+  const [contactState, contactDispatch] = useContacts();
+  const { current } = contactState;
+  //* Set up hook initial values for component level form state
+  const [contact, setContact] = useState(initialContact);
 
-  const onChange = (e) => {
-    if (e.target.value !== '') {
-      const targetValue = e.target.value.trim();
-      setAll(targetValue);
+  useEffect(() => {
+    if (current !== null) {
+      setContact(current);
     } else {
-      setAll('');
+      setContact(initialContact);
     }
-  };
-  const findOne = () => {
-    let dataArr = data;
-    const searchArr = dataArr.filter(
-      (item) =>
-        item.firstName.toLowerCase() === all.toLowerCase() ||
-        item.lastName.toLowerCase() === all.toLowerCase() ||
-        item.email.toLowerCase() === all.toLowerCase()
-    );
-    setFoundContact(searchArr);
-  };
+  }, [current]);
+
+  // Destructure local contact
+  const { id, firstName, lastName, phoneNumber, email, countryCode } = contact;
+
+  const onChange = (e) =>
+    setContact({ ...contact, [e.target.name]: e.target.value });
+
+  // const findOne = () => {
+  //   let dataArr = contact;
+  //   const searchArr = dataArr.filter(
+  //     (item) =>
+  //       item.firstName.toLowerCase() === current.firstName.toLowerCase() ||
+  //       item.lastName.toLowerCase() === current.lastName.toLowerCase() ||
+  //       item.email.toLowerCase() === current.email.toLowerCase()
+  //   );
+  //   setFoundContact(searchArr);
+  // };
   return (
     <div className='flex flex-col justify-center items-center'>
       <div className='flex justify-center flex-wrap'>
@@ -39,14 +49,15 @@ const AllContactFilter = ({ data }) => {
           type='text'
           className=' p-2 block bg-accent text-black placeholder-black placeholder-opacity-40'
           placeholder='Search All Contacts'
+          value={contact}
           onChange={onChange}
         />
-        <button className=' ml-3 mt-3 btn btn-xs btn-primary' onClick={findOne}>
+        <button className=' ml-3 mt-3 btn btn-xs btn-primary' onClick={()=>console.log("need to finish this up")}>
           Search
         </button>
       </div>
-      {foundContact.length > 0 ? (
-        foundContact.map((item) => (
+      {current!==null? (
+        contact.map((item) => (
           <div
             className=' card card-compact bg-secondary-focus text-primary w-1/2 shadow-xl my-3 sm:m-3'
             key={item.id}>

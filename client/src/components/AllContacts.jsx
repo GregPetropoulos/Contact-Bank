@@ -2,10 +2,10 @@ import React from 'react';
 import Footer from './Footer';
 import AllContactFilter from './AllContactFilter';
 
-const AllContacts = ({ data }) => {
+const AllContacts = () => {
   return (
     <div className=''>
-      <AllContactFilter data={data} />
+      <AllContactFilter />
    
       <Footer />
     </div>

@@ -1,7 +1,13 @@
 import { useState } from 'react';
 import { toast } from 'react-toastify';
+import {editContact, useContacts} from '../context/contact/ContactState';
 
 const Modal = ({ setData, data, item }) => {
+
+  // *CONTEXTAPI
+  const [contactState, contactDispatch]=useContacts()
+  const {contacts}=contactState
+
   const [showModal, setShowModal] = useState(false);
   //   const { id, firstName, lastName, email, countryCode, phoneNumber } = item;
 
@@ -19,7 +25,7 @@ const Modal = ({ setData, data, item }) => {
   // Update the single source of truth which is data, I match the id in the data to the newly updated object that was passed in called item. I am overwriting that object when I set the state
   const onSubmit = (e) => {
     e.preventDefault();
-    const dataArr = data;
+    const dataArr = contacts;
     const updateState = dataArr.map((item) =>
       item.id === id ? { ...item, ...updateInput } : item
     );
@@ -35,7 +41,7 @@ const Modal = ({ setData, data, item }) => {
         onClick={() => setShowModal(!showModal)}>
         Edit
       </button>
-      {data!==null&&showModal ? (
+      {contacts!==null&&showModal ? (
         <>
           <div className='transition ease-in-out delay-1000'>
             <div className='  rounded w-[250px] h-[430px]  bg-primary-focus flex flex-col justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none  '>

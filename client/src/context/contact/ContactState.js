@@ -26,8 +26,6 @@ export const getAllContacts = async (dispatch) => {
   try {
     const response = await fetch('api/contacts');
     const data = await response.json();
-    const contactData = data;
-    console.log('getAllContacts--response', response);
     console.log('getAllContacts--data', data);
     dispatch({
       type: GET_CONTACTS,
@@ -40,6 +38,28 @@ export const getAllContacts = async (dispatch) => {
     });
   }
 };
+
+export const addContact =async(dispatch,contact)=>{
+    const options={
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify(contact)
+    }
+    try {
+       const response= await fetch('api/contacts',options)
+       const data= await response.json();
+       console.log("addContact---data",data)
+       dispatch({
+        type:ADD_CONTACT,
+        payload: data
+       })
+    } catch (err) {
+dispatch({
+    type:CONTACT_ERROR,
+    payload:err.response.msg
+})
+    }
+}
 
 const ContactState = (props) => {
   const initialState = {

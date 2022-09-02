@@ -1,15 +1,17 @@
 import { useState, useEffect, Fragment } from 'react';
 import ContactDetails from './ContactDetails';
-import {useContacts, getAllContacts} from '../context/contact/ContactState';
+import { useContacts, getAllContacts } from '../context/contact/ContactState';
+
 
 const ContactFilter = ({ setData, data, currentContacts }) => {
   //* CONTEXTAPI
   //Bring in custom hook
-  const [contactState,contactDispatch]=useContacts()
-//destructure setter of custom hook to use state variable through out component
-// const {contacts}=contactState
-console.log("contactState",contactState)
-
+  const [contactState, contactDispatch] = useContacts();
+  //destructure setter of custom hook to use state variable through out component
+  const { contacts } = contactState;
+  console.log('contactState', contactState);
+  
+  // LOCAL STATE
   const [filterText, setFilterText] = useState('');
   const [matched, setMatched] = useState([]);
   const [search, setSearch] = useState(false);
@@ -17,17 +19,16 @@ console.log("contactState",contactState)
   const [isDescending, setIsDescending] = useState(false);
   const [isCountryCode, setIsCountryCode] = useState(false);
 
-useEffect(()=> {
-getAllContacts(contactDispatch)
-},[contactDispatch])
+  useEffect(() => {
+    getAllContacts(contactDispatch);
+  }, [contactDispatch]);
 
   useEffect(() => {
     // handling the search an sort functionality side effects
     // SEARCH FIELDS
     // --------------------------
     if (filterText.length > 0) {
-      // let dataArr = contacts;//TODO
-      let dataArr = data;
+      let dataArr = contacts;
       const searchArr = dataArr.filter(
         (item) =>
           item.firstName.toLowerCase() === filterText.toLowerCase() ||
@@ -71,14 +72,12 @@ getAllContacts(contactDispatch)
       setMatched(searchCountryCodeArr);
       setIsCountryCode(false);
     }
-// Clean up unmounting
-    return () =>
-    {
-      setIsAscending(false)
-      setIsDescending(false)
-      setIsCountryCode(false)
-
-    }
+    // Clean up unmounting
+    return () => {
+      setIsAscending(false);
+      setIsDescending(false);
+      setIsCountryCode(false);
+    };
   }, [filterText, search, isAscending, isDescending, isCountryCode]);
 
   const onChange = (e) => {
@@ -138,8 +137,17 @@ getAllContacts(contactDispatch)
         </div>
         <div className='flex flex-col items-center justify-center m-3 sm:flex-wrap sm:flex-row '>
           {/* Show the searched user or show all the users */}
-          {data.length>0?(search
-            ? matched.map((item) => (
+          {contacts !== null ? (
+            search ? (
+              matched.map((item) => (
+                <ContactDetails
+                  setData={setData}
+                  data={data}
+                  item={item}
+                  key={item.id}/>
+              ))
+            ) : (
+              currentContacts.map((item) => (
                 <ContactDetails
                   setData={setData}
                   data={data}
@@ -147,15 +155,10 @@ getAllContacts(contactDispatch)
                   key={item.id}
                 />
               ))
-            : currentContacts.map((item) => (
-                <ContactDetails
-                  setData={setData}
-                  data={data}
-                  item={item}
-                  key={item.id}
-                />
-              ))):<h1>No Data to Search</h1>
-            }
+            )
+          ) : (
+            <h1>No Data to Search</h1>
+          )}
         </div>
       </form>
     </Fragment>

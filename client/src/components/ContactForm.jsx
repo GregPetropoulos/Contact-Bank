@@ -1,6 +1,11 @@
+import { useEffect } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
-
+import {
+  addContact,
+  clearCurrent,
+  useContacts
+} from '../context/contact/ContactState';
 const initialContact = {
   id: 0,
   firstName: '',
@@ -9,31 +14,52 @@ const initialContact = {
   email: '',
   countryCode: ''
 };
-const ContactForm = ({ data, setData }) => {
-  const [current, setCurrent] = useState('');
+const ContactForm = () => {
+  const [contactState, contactDispatch] = useContacts();
+  const { current, contacts } = contactState;
+
+  //* Set up hook initial values for component/local level form state
   const [contact, setContact] = useState(initialContact);
+  useEffect(() => {
+    if (current !== null) {
+      setContact(current);
+    } else {
+      setContact(initialContact);
+    }
+  }, [current]);
+
   //* de-structure contact to use in the form below
   const { id, firstName, lastName, email, phoneNumber, countryCode } = contact;
 
   //*Locate max Id for correct id number to add to new contact
-  const idNum = data.map((item) => item.id);
-  let max = Math.max(...idNum);
-
-  const onChange = (e) => {
-    setContact((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-      id: max + 1
-    }));
-  };
+  //TODO CREATE A ID ITERATOR
+  const idNum = ''
+  
+  const onChange = (e) =>
+    setContact({ ...contact, [e.target.name]: e.target.value,id:5000  });
+  // setContact((prev) => ({
+  //   ...prev,
+  //   [e.target.name]: e.target.value,
+  //   id: max + 1
+  // }));
 
   const onSubmit = (e) => {
     e.preventDefault();
     // Adding one contact to state
-    setData((prev) => [...prev, contact]);
-    setContact(initialContact);
+    if (current === null) {
+      addContact(contactDispatch, contact).then(() => setContact(initialContact));
+    }
+    // else update the edit contact
+    console.log('contact add submnissiins', contact);
+    // setData((prev) => [...prev, contact]);
+    // setContact(initialContact);
     toast.success('Contact Added');
+    // clearAll()
   };
+
+  //   const clearAll=()=>{
+  // clearCurrent(contactDispatch)
+  //  }
 
   return (
     <>
@@ -42,7 +68,7 @@ const ContactForm = ({ data, setData }) => {
         //  className='block sm:flex sm:justify-between sm:items-center sm: w-full'
         className='flex flex-col items-center w-screen'>
         <h2 className='text-primary m-2'>
-          {current ? 'Edit Contact' : 'Add Contact'}
+          {/* {current ? 'Edit Contact' : 'Add Contact'} */}
         </h2>
         <input
           className='p-2 m-2'
