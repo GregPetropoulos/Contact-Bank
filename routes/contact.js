@@ -5,13 +5,6 @@ const { copyFile } = require('fs');
 
 // mongoose schema
 const Contact = require('../models/Contact');
-
-function middlewareFunctionPlaceholder(req, res, next) {
-  res.status(200).json({ msg: 'yahooooo' });
-  next();
-}
-
-
 // TEST
 // router.get('/',(req,res)=>{
 //         console.log("/test request called");
@@ -22,7 +15,7 @@ function middlewareFunctionPlaceholder(req, res, next) {
 
 router.get('/', async (req, res) => {
   try {
-    const contacts = await Contact.find({}).select('-_id');
+    const contacts = await Contact.find({});
     res.json(contacts);
   } catch (err) {
     console.error(err.message);

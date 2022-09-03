@@ -2,7 +2,6 @@ import { useState, useEffect, Fragment } from 'react';
 import ContactDetails from './ContactDetails';
 import { useContacts, getAllContacts } from '../context/contact/ContactState';
 
-
 const ContactFilter = ({ setData, data, currentContacts }) => {
   //* CONTEXTAPI
   //Bring in custom hook
@@ -10,8 +9,8 @@ const ContactFilter = ({ setData, data, currentContacts }) => {
   //destructure setter of custom hook to use state variable through out component
   const { contacts } = contactState;
   console.log('contactState', contactState);
-  
-  // LOCAL STATE
+
+  // LOCAL STATE FOR FILTERING
   const [filterText, setFilterText] = useState('');
   const [matched, setMatched] = useState([]);
   const [search, setSearch] = useState(false);
@@ -136,26 +135,32 @@ const ContactFilter = ({ setData, data, currentContacts }) => {
           </div>
         </div>
         <div className='flex flex-col items-center justify-center m-3 sm:flex-wrap sm:flex-row '>
-          {/* Show the searched user or show all the users */}
+
           {contacts !== null ? (
             search ? (
-              matched.map((item) => (
+              // handling the search functionality here
+              contacts.map((contactItem) => (
                 <ContactDetails
-                  setData={setData}
-                  data={data}
-                  item={item}
-                  key={item.id}/>
-              ))
-            ) : (
-              currentContacts.map((item) => (
-                <ContactDetails
-                  setData={setData}
-                  data={data}
-                  item={item}
-                  key={item.id}
+                  contactItem={contactItem}
+                  key={contactItem._id}
                 />
               ))
-            )
+            ) : (
+              contacts.map((contactItem) => (
+                <ContactDetails
+                  contactItem={contactItem}
+                  key={contactItem._id}
+                />
+                // Handles the pagination
+              // currentContacts.map((item) => (
+              //   <ContactDetails
+              //     // setData={setData}
+              //     // data={data}
+              //     item={item}
+              //     key={item.id}
+              //   />
+              // ))
+            )))
           ) : (
             <h1>No Data to Search</h1>
           )}

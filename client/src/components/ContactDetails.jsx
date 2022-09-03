@@ -1,11 +1,19 @@
 import React from 'react';
 import { toast } from 'react-toastify';
 import Modal from './Modal';
-import contactContext
- from '../context/contact/contactContext';
-const ContactDetails = ({ setData, data, item }) => {
-  const { id, firstName, lastName, email, countryCode, phoneNumber } = item;
+import { deleteContact, useContacts } from '../context/contact/ContactState';
 
+const ContactDetails = ({ contactItem }) => {
+  // Only need the dispatch not the state
+  const contactDispatch = useContacts()[1];
+
+  const { _id, firstName, lastName, email, countryCode, phoneNumber } =
+    contactItem;
+
+  const onDelete = () => {
+    toast.error('Contact Deleted');
+    deleteContact(contactDispatch, _id);
+  };
   return (
     <>
       {/* // Not matched cards per page  */}
@@ -27,16 +35,9 @@ const ContactDetails = ({ setData, data, item }) => {
               </button>
             </a>
             <div className='btn-group justify-between'>
-              <Modal setData={setData} data={data} item={item} key={item.id} />
-
-              <button
-                className='btn btn-xs m-1 btn-primary'
-                // in-line Delete and Toast functionality
-                onClick={() => {
-                  toast.error('Contact Deleted');
-                  setData(data.filter((item) => item.id !== id));
-                }}>
-                Delete Out
+              {/* <Modal setData={setData} data={data} item={item} key={item.id} /> */}
+              <button className='btn btn-xs m-1 btn-primary' onClick={onDelete}>
+                Delete
               </button>
             </div>
           </div>

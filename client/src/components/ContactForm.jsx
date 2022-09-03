@@ -33,21 +33,19 @@ const ContactForm = () => {
 
   //*Locate max Id for correct id number to add to new contact
   //TODO CREATE A ID ITERATOR
-  const idNum = ''
-  
-  const onChange = (e) =>
-    setContact({ ...contact, [e.target.name]: e.target.value,id:5000  });
-  // setContact((prev) => ({
-  //   ...prev,
-  //   [e.target.name]: e.target.value,
-  //   id: max + 1
-  // }));
+
+  const onChange = (e) => {
+    const idNum = contacts !== null && contacts.length - 1;
+    setContact({ ...contact, [e.target.name]: e.target.value, id: idNum + 1 });
+  };
 
   const onSubmit = (e) => {
     e.preventDefault();
     // Adding one contact to state
     if (current === null) {
-      addContact(contactDispatch, contact).then(() => setContact(initialContact));
+      addContact(contactDispatch, contact).then(() =>
+        setContact(initialContact)
+      );
     }
     // else update the edit contact
     console.log('contact add submnissiins', contact);

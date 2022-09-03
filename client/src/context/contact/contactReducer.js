@@ -23,11 +23,13 @@ const contactReducer = (state, action) => {
           console.log("action.payload",action.payload)
           return{
               ...state,
-              contacts:[action.payload,state.contacts]
+              contacts:[action.payload,...state.contacts]
         }
       case DELETE_CONTACT:
         return {
-            ...state
+            ...state,
+            contacts:state.contacts.filter(contactItem=> contactItem._id!==action.payload)
+            // TODO ADD FILTER
         }
     case CONTACT_ERROR:
       return {

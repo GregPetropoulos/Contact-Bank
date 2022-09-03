@@ -21,7 +21,7 @@ export const useContacts = () => {
   return [state, dispatch];
 };
 
-//*GET CONTACTS-getting all of the users contacts
+//*GET ALL CONTACTS
 export const getAllContacts = async (dispatch) => {
   try {
     const response = await fetch('api/contacts');
@@ -38,29 +38,49 @@ export const getAllContacts = async (dispatch) => {
     });
   }
 };
-
-export const addContact =async(dispatch,contact)=>{
+//* ADD CONTACTS
+export const addContact = async (dispatch, contact) => {
+  const options = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(contact)
+  };
+  try {
+    const response = await fetch('api/contacts', options);
+    const data = await response.json();
+    console.log('addContact---data', data);
+    dispatch({
+      type: ADD_CONTACT,
+      payload: data
+    });
+  } catch (err) {
+    dispatch({
+      type: CONTACT_ERROR,
+      payload: err.response.msg
+    });
+  }
+};
+//* DELETE A CONTACT
+export const deleteContact= async(dispatch,id)=>{
     const options={
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify(contact)
+        method:'DELETE',
+        // headers:{},
     }
     try {
-       const response= await fetch('api/contacts',options)
-       const data= await response.json();
-       console.log("addContact---data",data)
-       dispatch({
-        type:ADD_CONTACT,
-        payload: data
-       })
+        
+        const response = await fetch(`api/contacts/${id}`,options)
+        const data = await response.json()
+        dispatch({
+            type:DELETE_CONTACT,
+            payload:id
+        })
     } catch (err) {
-dispatch({
-    type:CONTACT_ERROR,
-    payload:err.response.msg
-})
+        dispatch({
+            type:CONTACT_ERROR,
+            payload:err.response.msg
+        })
     }
 }
-
 const ContactState = (props) => {
   const initialState = {
     contacts: null,
