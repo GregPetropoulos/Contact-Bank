@@ -38,7 +38,7 @@ export const getAllContacts = async (dispatch) => {
     });
   }
 };
-//* ADD CONTACTS
+//* ADD CONTACT
 export const addContact = async (dispatch, contact) => {
   const options = {
     method: 'POST',

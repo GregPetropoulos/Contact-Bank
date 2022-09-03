@@ -7,7 +7,7 @@ import {
   useContacts
 } from '../context/contact/ContactState';
 const initialContact = {
-  id: 0,
+  id: '',
   firstName: '',
   lastName: '',
   phoneNumber: '',
@@ -20,29 +20,30 @@ const ContactForm = () => {
 
   //* Set up hook initial values for component/local level form state
   const [contact, setContact] = useState(initialContact);
-  useEffect(() => {
-    if (current !== null) {
-      setContact(current);
-    } else {
-      setContact(initialContact);
-    }
-  }, [current]);
+
+  // TODO Move this to modal for editing a contact
+  // useEffect(() => {
+  //   if (current !== null) {
+  //     setContact(current);
+  //   } else {
+  //     setContact(initialContact);
+  //   }
+  // }, [current]);
 
   //* de-structure contact to use in the form below
-  const { id, firstName, lastName, email, phoneNumber, countryCode } = contact;
+  const { firstName, lastName, email, phoneNumber, countryCode } = contact;
 
-  //*Locate max Id for correct id number to add to new contact
-  //TODO CREATE A ID ITERATOR
+  //*Locate max Id for correct id number to add 1 to new contact id
+  const idMax = contacts !== null && contacts.map((user) => user.id).sort((a, b) => a - b)[contacts.length - 1] + 1;
 
   const onChange = (e) => {
-    const idNum = contacts !== null && contacts.length - 1;
-    setContact({ ...contact, [e.target.name]: e.target.value, id: idNum + 1 });
+    setContact({ ...contact, [e.target.name]: e.target.value, id: idMax });
   };
 
   const onSubmit = (e) => {
     e.preventDefault();
     // Adding one contact to state
-    if (current === null) {
+    if (contact !== initialContact) {
       addContact(contactDispatch, contact).then(() =>
         setContact(initialContact)
       );
@@ -54,7 +55,7 @@ const ContactForm = () => {
     toast.success('Contact Added');
     // clearAll()
   };
-
+  // TODO Clearing the current piece of state if the contact ias added
   //   const clearAll=()=>{
   // clearCurrent(contactDispatch)
   //  }
