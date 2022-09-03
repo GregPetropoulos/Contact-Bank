@@ -26,7 +26,6 @@ export const getAllContacts = async (dispatch) => {
   try {
     const response = await fetch('api/contacts');
     const data = await response.json();
-    console.log('getAllContacts--data', data);
     dispatch({
       type: GET_CONTACTS,
       payload: data
@@ -38,6 +37,7 @@ export const getAllContacts = async (dispatch) => {
     });
   }
 };
+
 //* ADD CONTACT
 export const addContact = async (dispatch, contact) => {
   const options = {
@@ -48,7 +48,6 @@ export const addContact = async (dispatch, contact) => {
   try {
     const response = await fetch('api/contacts', options);
     const data = await response.json();
-    console.log('addContact---data', data);
     dispatch({
       type: ADD_CONTACT,
       payload: data
@@ -60,26 +59,57 @@ export const addContact = async (dispatch, contact) => {
     });
   }
 };
+
+// * EDIT CONTACT
+export const editContact = async (dispatch, contact) => {
+  const options = {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(contact)
+  };
+  try {
+    const response = await fetch(`api/contacts/${contact._id}`, options);
+    const data = await response.json();
+    dispatch({
+      type: UPDATE_CONTACT,
+      payload: data
+    });
+  } catch (err) {
+    dispatch({
+      type: CONTACT_ERROR,
+      payload: err.response.msg
+    });
+  }
+};
+
 //* DELETE A CONTACT
-export const deleteContact= async(dispatch,id)=>{
-    const options={
-        method:'DELETE',
-        // headers:{},
-    }
-    try {
-        
-        const response = await fetch(`api/contacts/${id}`,options)
-        const data = await response.json()
-        dispatch({
-            type:DELETE_CONTACT,
-            payload:id
-        })
-    } catch (err) {
-        dispatch({
-            type:CONTACT_ERROR,
-            payload:err.response.msg
-        })
-    }
+export const deleteContact = async (dispatch, id) => {
+  const options = {
+    method: 'DELETE'
+    // headers:{},
+  };
+  try {
+    const response = await fetch(`api/contacts/${id}`, options);
+    const data = await response.json();
+    dispatch({
+      type: DELETE_CONTACT,
+      payload: id
+    });
+  } catch (err) {
+    dispatch({
+      type: CONTACT_ERROR,
+      payload: err.response.msg
+    });
+  }
+};
+
+
+//*SET CURRENT CONTACT STATE
+export const setCurrent =async(dispatch,contact)=>{
+dispatch({
+    type:SET_CURRENT,
+    payload:contact
+})
 }
 const ContactState = (props) => {
   const initialState = {

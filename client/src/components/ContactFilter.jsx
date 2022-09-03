@@ -1,14 +1,16 @@
 import { useState, useEffect, Fragment } from 'react';
 import ContactDetails from './ContactDetails';
 import { useContacts, getAllContacts } from '../context/contact/ContactState';
+import Modal from './Modal';
 
-const ContactFilter = ({ setData, data, currentContacts }) => {
+
+const ContactFilter = ({ currentContacts }) => {
   //* CONTEXTAPI
   //Bring in custom hook
   const [contactState, contactDispatch] = useContacts();
   //destructure setter of custom hook to use state variable through out component
   const { contacts } = contactState;
-  console.log('contactState', contactState);
+  console.log('contactState in Filter', contactState);
 
   // LOCAL STATE FOR FILTERING
   const [filterText, setFilterText] = useState('');
@@ -147,10 +149,11 @@ const ContactFilter = ({ setData, data, currentContacts }) => {
               ))
             ) : (
               contacts.map((contactItem) => (
+                
                 <ContactDetails
                   contactItem={contactItem}
                   key={contactItem._id}
-                />
+                  />
                 // Handles the pagination
               // currentContacts.map((item) => (
               //   <ContactDetails

@@ -35,7 +35,7 @@ const ContactDetails = ({ contactItem }) => {
               </button>
             </a>
             <div className='btn-group justify-between'>
-              {/* <Modal setData={setData} data={data} item={item} key={item.id} /> */}
+              <Modal contactItem={contactItem}  />
               <button className='btn btn-xs m-1 btn-primary' onClick={onDelete}>
                 Delete
               </button>

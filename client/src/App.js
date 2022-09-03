@@ -12,12 +12,9 @@ import ContactState from './context/contact/ContactState'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import jsonData from './data/contacts.json';
 
 
 function App() {
-  const [data, setData] = useState(jsonData);
-console.log("local APPJS DATA",data)
   return (
     <>
     <ContactState>

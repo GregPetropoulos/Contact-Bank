@@ -1,56 +1,65 @@
+import { useEffect } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
-import {editContact, useContacts} from '../context/contact/ContactState';
+import {
+  editContact,
+  useContacts,
+  setCurrent
+} from '../context/contact/ContactState';
 
-const Modal = ({ setData, data, item }) => {
-
+const Modal = ({ contactItem }) => {
   // *CONTEXTAPI
-  const [contactState, contactDispatch]=useContacts()
-  const {contacts}=contactState
+  const [contactState, contactDispatch] = useContacts();
+  const { contacts, current } = contactState;
 
   const [showModal, setShowModal] = useState(false);
-  //   const { id, firstName, lastName, email, countryCode, phoneNumber } = item;
 
   // Place item in the state for editing via form
-  const [updateInput, setUpdateInput] = useState(item);
+  const [updateInput, setUpdateInput] = useState('');
 
-  // Destructure the state and use these values for the form value
-  const { id, firstName, lastName, email, countryCode, phoneNumber } =
-    updateInput;
+  //  Watching for current changes (once edit button is clicked) then setting local state with those changes
+  useEffect(() => {
+    if (current !== null) {
+      setUpdateInput(current);
+    } else {
+      setUpdateInput(contactItem);
+    }
+  }, [current]);
+
+  // Destructure the local state and use these values for the form value
+  const { firstName, lastName, email, countryCode, phoneNumber } = updateInput;
 
   const onChange = (e) => {
-    setUpdateInput((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    // See Local state changes in UI IN REALTIME
+    setUpdateInput({ ...updateInput, [e.target.name]: e.target.value });
   };
 
-  // Update the single source of truth which is data, I match the id in the data to the newly updated object that was passed in called item. I am overwriting that object when I set the state
   const onSubmit = (e) => {
     e.preventDefault();
-    const dataArr = contacts;
-    const updateState = dataArr.map((item) =>
-      item.id === id ? { ...item, ...updateInput } : item
-    );
-    setData(updateState);
+    //  sending the local state changes to the contextAPI thus database updates via backend
+    editContact(contactDispatch, updateInput);
     setShowModal(false);
     toast.success('Contact Updated');
   };
 
+  // First step in edit process, Setting the current state variable when the user clicks on the edit button, useEffect will  run since it's watch the current variable setting local state to current contact object
+  const openModalSetCurrent = () => {
+    setShowModal(!showModal);
+    setCurrent(contactDispatch, contactItem);
+  };
   return (
     <>
       <button
         className='btn btn-xs m-1 btn-primary'
-        onClick={() => setShowModal(!showModal)}>
+        onClick={openModalSetCurrent}>
         Edit
       </button>
-      {contacts!==null&&showModal ? (
+      {contacts !== null && showModal ? (
         <>
           <div className='transition ease-in-out delay-1000'>
             <div className='  rounded w-[250px] h-[430px]  bg-primary-focus flex flex-col justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none  '>
-              
-              
               {/* FORM--Can not have a from tag inside of form tag this must  be a div tag*/}
-              <div
-                onSubmit={onSubmit}
-                className='flex flex-col items-center'>
+              <div onSubmit={onSubmit} className='flex flex-col items-center'>
                 <h1 className='text-lg font-bold '>{`Edit ${firstName} ${lastName} `}</h1>
                 <input
                   className='p-2 m-2'

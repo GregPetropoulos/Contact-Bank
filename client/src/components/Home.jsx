@@ -25,8 +25,6 @@ const Home = ({ data, setData }) => {
     <div className='container  mx-auto'>
       <div className='flex flex-col justify-center items-center'>
         <ContactFilter
-          setData={setData}
-          data={data}
           currentContacts={currentContacts}
         />
         <Pagination

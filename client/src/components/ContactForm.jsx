@@ -48,10 +48,6 @@ const ContactForm = () => {
         setContact(initialContact)
       );
     }
-    // else update the edit contact
-    console.log('contact add submnissiins', contact);
-    // setData((prev) => [...prev, contact]);
-    // setContact(initialContact);
     toast.success('Contact Added');
     // clearAll()
   };
