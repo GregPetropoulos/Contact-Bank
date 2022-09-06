@@ -21,7 +21,7 @@ function App() {
       <Router>
         <Navbar />
         <Routes>
-          <Route path='/' element={<Home data={data} setData={setData} />} />
+          <Route path='/' element={<Home />} />
           {/* <Route path='/all-contacts' element={<AllContacts/>} /> */}
           <Route
             path='/contact-form'

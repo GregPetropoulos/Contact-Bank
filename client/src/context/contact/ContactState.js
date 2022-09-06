@@ -12,7 +12,8 @@ import {
   FILTER_CONTACTS,
   CLEAR_CONTACTS,
   CLEAR_FILTER,
-  CONTACT_ERROR
+  CONTACT_ERROR,
+  CURRENT_CONTACTS_PER_PAGE
 } from '../types';
 
 // Create a custom hook to use the contact context
@@ -103,21 +104,34 @@ export const deleteContact = async (dispatch, id) => {
   }
 };
 
-
 //*SET CURRENT CONTACT STATE
-export const setCurrent =async(dispatch,contact)=>{
-dispatch({
-    type:SET_CURRENT,
-    payload:contact
-})
-}
+export const setCurrent = async (dispatch, contact) => {
+  dispatch({
+    type: SET_CURRENT,
+    payload: contact
+  });
+};
+
+// //*PAGINATION
+export const setCurrentContactsPerPage = async (
+  dispatch,
+  currentContactsOnPage
+) => {
+  dispatch({
+    type: CURRENT_CONTACTS_PER_PAGE,
+    payload: currentContactsOnPage
+  });
+};
+
 const ContactState = (props) => {
   const initialState = {
     contacts: null,
     current: null,
+    contactsPerPage: null,
     filtered: null,
     error: null
   };
+  //   The engine running the state against changes
   const [state, dispatch] = useReducer(contactReducer, initialState);
   return (
     <ContactContext.Provider value={{ state: state, dispatch }}>

@@ -1,15 +1,13 @@
 import { useState, useEffect, Fragment } from 'react';
 import ContactDetails from './ContactDetails';
 import { useContacts, getAllContacts } from '../context/contact/ContactState';
-import Modal from './Modal';
 
-
-const ContactFilter = ({ currentContacts }) => {
+const ContactFilter = () => {
   //* CONTEXTAPI
   //Bring in custom hook
   const [contactState, contactDispatch] = useContacts();
   //destructure setter of custom hook to use state variable through out component
-  const { contacts } = contactState;
+  const { contacts, contactsPerPage } = contactState;
   console.log('contactState in Filter', contactState);
 
   // LOCAL STATE FOR FILTERING
@@ -25,7 +23,7 @@ const ContactFilter = ({ currentContacts }) => {
   }, [contactDispatch]);
 
   useEffect(() => {
-    // handling the search an sort functionality side effects
+    // handling the local search an sort functionality side effects
     // SEARCH FIELDS
     // --------------------------
     if (filterText.length > 0) {
@@ -45,7 +43,7 @@ const ContactFilter = ({ currentContacts }) => {
     // SORTING ORDERS
     // --------------------------
     if (isAscending) {
-      let dataArr = currentContacts;
+      let dataArr = contactsPerPage;
       const searchAscArr = dataArr.sort((a, b) =>
         a.lastName > b.lastName ? 1 : b.lastName > a.lastName ? -1 : 0
       );
@@ -53,7 +51,7 @@ const ContactFilter = ({ currentContacts }) => {
       setIsAscending(false);
     }
     if (isDescending) {
-      let dataArr = currentContacts;
+      let dataArr = contactsPerPage;
       const searchDescArr = dataArr.sort((a, b) =>
         a.lastName < b.lastName ? 1 : b.lastName < a.lastName ? -1 : 0
       );
@@ -62,7 +60,7 @@ const ContactFilter = ({ currentContacts }) => {
     }
 
     if (isCountryCode) {
-      let dataArr = currentContacts;
+      let dataArr = contactsPerPage;
       const searchCountryCodeArr = dataArr.sort((a, b) =>
         a.countryCode > b.countryCode
           ? 1
@@ -137,7 +135,6 @@ const ContactFilter = ({ currentContacts }) => {
           </div>
         </div>
         <div className='flex flex-col items-center justify-center m-3 sm:flex-wrap sm:flex-row '>
-
           {contacts !== null ? (
             search ? (
               // handling the search functionality here
@@ -148,22 +145,15 @@ const ContactFilter = ({ currentContacts }) => {
                 />
               ))
             ) : (
-              contacts.map((contactItem) => (
-                
+              contactsPerPage !== null &&
+              // Handles the pagination
+              contactsPerPage.map((contactItem) => (
                 <ContactDetails
                   contactItem={contactItem}
                   key={contactItem._id}
-                  />
-                // Handles the pagination
-              // currentContacts.map((item) => (
-              //   <ContactDetails
-              //     // setData={setData}
-              //     // data={data}
-              //     item={item}
-              //     key={item.id}
-              //   />
-              // ))
-            )))
+                />
+              ))
+            )
           ) : (
             <h1>No Data to Search</h1>
           )}

@@ -1,6 +1,3 @@
-
-
-
 export const GET_CONTACTS = 'GET_CONTACTS';
 export const ADD_CONTACT = 'ADD_CONTACT';
 export const DELETE_CONTACT = 'DELETE_CONTACT';
@@ -21,3 +18,4 @@ export const LOGOUT = 'LOGOUT';
 export const CLEAR_ERRORS = 'CLEAR_ERRORS';
 export const CONTACT_ERROR = 'CONTACT_ERROR';
 export const CLEAR_CONTACTS = 'CLEAR_CONTACTS';
+export const CURRENT_CONTACTS_PER_PAGE = 'CURRENT_CONTACTS_PER_PAGE';
