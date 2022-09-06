@@ -22,7 +22,7 @@ function App() {
         <Navbar />
         <Routes>
           <Route path='/' element={<Home />} />
-          {/* <Route path='/all-contacts' element={<AllContacts/>} /> */}
+          <Route path='/all-contacts' element={<AllContacts/>} />
           <Route
             path='/contact-form'
             element={<ContactForm />}

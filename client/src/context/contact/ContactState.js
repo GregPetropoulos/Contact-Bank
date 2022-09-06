@@ -112,7 +112,22 @@ export const setCurrent = async (dispatch, contact) => {
   });
 };
 
-// //*PAGINATION
+// * SEARCH FUNCTIONALITY ON ALL SEARCH PAGE
+export const filterContacts =(dispatch,text)=>{
+dispatch({
+  type:FILTER_CONTACTS,
+  payload:text
+})
+}
+export const clearFilter =(dispatch)=>{
+    //*dispatch will send the action.type, payload data, an object current null
+  dispatch({
+    type:CLEAR_FILTER,
+
+  })
+}
+
+ //*PAGINATION
 export const setCurrentContactsPerPage = async (
   dispatch,
   currentContactsOnPage

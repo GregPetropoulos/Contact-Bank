@@ -42,7 +42,6 @@ const contactReducer = (state, action) => {
         contacts: state.contacts.filter(
           (contactItem) => contactItem._id !== action.payload
         )
-        // TODO ADD FILTER
       };
     // *NON CRUD OPS
     case SET_CURRENT:
@@ -57,6 +56,21 @@ const contactReducer = (state, action) => {
         contactsPerPage: action.payload
       };
 
+    // *SEARCH/FILTER
+    case FILTER_CONTACTS:
+      return {
+        ...state,
+        //* Take filtered part of state set to initial contacts and run filter method on it
+        filtered: state.contacts.filter(({ firstName, lastName, email }) => {
+          const testString = `${firstName}${lastName}${email}`.toLowerCase();
+          return testString.includes(action.payload.toLowerCase());
+        })
+      };
+case CLEAR_FILTER:
+  return{
+    ...state,
+    filtered:null
+  }
     case CONTACT_ERROR:
       return {
         ...state,
