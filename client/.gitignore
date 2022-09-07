@@ -10,7 +10,7 @@
 
 # production
 had comment out a production build for Render deployment
-# /build
+/build
 
 
 # misc
