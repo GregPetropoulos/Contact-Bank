@@ -9,7 +9,9 @@
 /coverage
 
 # production
-/build
+had comment out a production build for Render deployment
+# /build
+
 
 # misc
 .DS_Store
