@@ -13,7 +13,8 @@ import {
   CLEAR_CONTACTS,
   CLEAR_FILTER,
   CONTACT_ERROR,
-  CURRENT_CONTACTS_PER_PAGE
+  CURRENT_CONTACTS_PER_PAGE,
+  SORT_ORDER
 } from '../types';
 
 // Create a custom hook to use the contact context
@@ -113,21 +114,27 @@ export const setCurrent = async (dispatch, contact) => {
 };
 
 // * SEARCH FUNCTIONALITY ON ALL SEARCH PAGE
-export const filterContacts =(dispatch,text)=>{
-dispatch({
-  type:FILTER_CONTACTS,
-  payload:text
-})
-}
-export const clearFilter =(dispatch)=>{
-    //*dispatch will send the action.type, payload data, an object current null
+export const filterContacts = (dispatch, text) => {
   dispatch({
-    type:CLEAR_FILTER,
+    type: FILTER_CONTACTS,
+    payload: text
+  });
+};
+export const clearFilter = (dispatch) => {
+  //*dispatch will send the action.type, payload data, an object current null
+  dispatch({
+    type: CLEAR_FILTER
+  });
+};
+// * SORT CONTACTS
+export const sortOrder = (dispatch, contactsSorted) => {
+  dispatch({
+    type: SORT_ORDER,
+    payload: contactsSorted
+  });
+};
 
-  })
-}
-
- //*PAGINATION
+//*PAGINATION
 export const setCurrentContactsPerPage = async (
   dispatch,
   currentContactsOnPage

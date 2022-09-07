@@ -8,30 +8,28 @@ import Home from './components/Home';
 import Navbar from './components/NavBar';
 import AllContacts from './components/AllContacts';
 import ContactForm from './components/ContactForm';
-import ContactState from './context/contact/ContactState'
+import ContactState from './context/contact/ContactState';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-
+import Footer from './components/Footer';
+import Pagination from './components/Pagination';
 
 function App() {
   return (
     <>
-    <ContactState>
       <Router>
         <Navbar />
-        <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/all-contacts' element={<AllContacts/>} />
-          <Route
-            path='/contact-form'
-            element={<ContactForm />}
-          />
-        </Routes>
+        <ContactState>
+          <Routes>
+            <Route path='/' element={<Home />} />
+            <Route path='/all-contacts' element={<AllContacts />} />
+            <Route path='/contact-form' element={<ContactForm />} />
+          </Routes>
+          <Pagination />
+        </ContactState>
+        <Footer />
       </Router>
       <ToastContainer />
-    </ContactState>
-
     </>
   );
 }

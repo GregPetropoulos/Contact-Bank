@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
-  useContacts,
+  useContacts,clearFilter,
   setCurrentContactsPerPage
 } from '../context/contact/ContactState';
 // * KEEP IN MIND THERE ARE TWO SEPARATE FUNCTIONS NAMED SETCURRENTPAGE
@@ -27,7 +27,7 @@ const Pagination = () => {
         // If any state change to the current page then update the context api contactsPerPage array
       setCurrentContactsPerPage(contactDispatch, currentContactsOnPage);
     }
-  }, [currentPage]);
+  }, [contacts,currentPage]);
 
   const pageNumbers = [];
   // Loop through total contacts per page and push the caclulated number into array to get correct number of pages
@@ -46,7 +46,7 @@ const Pagination = () => {
               <Link
                 to='#'
                 className='btn btn-xs m-1'
-                onClick={() => SetCurrentPage(number)}
+                onClick={() => {SetCurrentPage(number);clearFilter(contactDispatch);}}
                 alt='paging'>
                 {number}
               </Link>

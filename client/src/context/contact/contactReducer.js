@@ -9,11 +9,11 @@ import {
   CLEAR_FILTER,
   CONTACT_ERROR,
   CLEAR_CONTACTS,
-  CURRENT_CONTACTS_PER_PAGE
+  CURRENT_CONTACTS_PER_PAGE,
+  SORT_ORDER
 } from '../types';
 
 const contactReducer = (state, action) => {
-  console.log('state', state);
   switch (action.type) {
     // * CRUD OPS
     case GET_CONTACTS:
@@ -66,11 +66,17 @@ const contactReducer = (state, action) => {
           return testString.includes(action.payload.toLowerCase());
         })
       };
-case CLEAR_FILTER:
-  return{
-    ...state,
-    filtered:null
-  }
+    case CLEAR_FILTER:
+      return {
+        ...state,
+        filtered: null
+      };
+    //* SORT 0RDER
+    case SORT_ORDER:
+      return {
+        ...state,
+        contacts: action.payload
+      };
     case CONTACT_ERROR:
       return {
         ...state,

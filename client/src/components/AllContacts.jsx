@@ -1,5 +1,4 @@
-import React from 'react';
-import Footer from './Footer';
+import React, { useState } from 'react';
 import Spinner from './Spinner';
 import {
   useContacts,
@@ -10,31 +9,37 @@ import ContactDetails from './ContactDetails';
 
 const AllContacts = () => {
   const [contactState, contactDispatch] = useContacts();
-  const { contacts, filtered } = contactState;
+  const { contacts, filtered, contactsPerPage } = contactState;
+  const [inputText, setInputText] = useState('');
 
   const onChange = (e) => {
-    const searchText = e.target.value;
+    let searchText = e.target.value;
+    setInputText(searchText);
     if (searchText !== '') {
       filterContacts(contactDispatch, searchText);
     } else {
       clearFilter(contactDispatch);
+      setInputText('');
     }
   };
 
   return (
-       <> 
-<div className='flex justify-center mt-4'>
-
-        <form onSubmit={(e) => e.preventDefault()}>
+    <>
+      <div className='flex justify-center mt-4'>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+          }}>
           <input
             type='text'
             className='p-2 block bg-primary text-black placeholder-black placeholder-opacity-40 input input-bordered input-secondary w-full max-w-xs'
-            placeholder='Filter Contacts'
+            value={inputText}
+            placeholder='Search Contacts'
             onChange={onChange}
-            />
+          />
         </form>
-            </div>
-    <div className='flex flex-col items-center justify-center m-3 sm:flex-wrap sm:flex-row '>
+      </div>
+      <div className='flex flex-col items-center justify-center m-3 sm:flex-wrap sm:flex-row '>
         {contacts !== null ? (
           filtered !== null ? (
             <>
@@ -46,19 +51,20 @@ const AllContacts = () => {
             </>
           ) : (
             <>
-              {contacts.map((contactItem) => (
-                <ContactDetails contactItem={contactItem} />
-              ))}
+              {contactsPerPage !== null &&
+                contactsPerPage.map((contactItem) => (
+                  <ContactDetails
+                    key={contactItem._id}
+                    contactItem={contactItem}
+                  />
+                ))}
             </>
           )
         ) : (
           <Spinner />
         )}
-
-      <Footer />
-    </div>
-    </> 
-
+      </div>
+    </>
   );
 };
 

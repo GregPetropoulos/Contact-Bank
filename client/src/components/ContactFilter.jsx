@@ -1,66 +1,60 @@
 import { useState, useEffect, Fragment } from 'react';
 import ContactDetails from './ContactDetails';
-import { useContacts, getAllContacts } from '../context/contact/ContactState';
+import AllContacts from './AllContacts';
+import {
+  useContacts,
+  getAllContacts,
+  sortOrder
+} from '../context/contact/ContactState';
 
 const ContactFilter = () => {
   //* CONTEXTAPI
   //Bring in custom hook
   const [contactState, contactDispatch] = useContacts();
   //destructure setter of custom hook to use state variable through out component
-  const { contacts, contactsPerPage } = contactState;
-  console.log('contactState in Filter', contactState);
+  const { contacts } = contactState;
 
-  // LOCAL STATE FOR FILTERING
-  const [filterText, setFilterText] = useState('');
-  const [matched, setMatched] = useState([]);
-  const [search, setSearch] = useState(false);
+  // LOCAL STATE FOR SORTING
   const [isAscending, setIsAscending] = useState(false);
   const [isDescending, setIsDescending] = useState(false);
   const [isCountryCode, setIsCountryCode] = useState(false);
 
   useEffect(() => {
-    getAllContacts(contactDispatch);
-  }, [contactDispatch]);
-
-  useEffect(() => {
-    // handling the local search an sort functionality side effects
-    // SEARCH FIELDS
-    // --------------------------
-    if (filterText.length > 0) {
-      let dataArr = contacts;
-      const searchArr = dataArr.filter(
-        (item) =>
-          item.firstName.toLowerCase() === filterText.toLowerCase() ||
-          item.lastName.toLowerCase() === filterText.toLowerCase() ||
-          item.email.toLowerCase() === filterText.toLowerCase()
-      );
-      setMatched(searchArr);
-    } else {
-      setMatched('');
-      setSearch(false);
+    if (contacts === null) {
+      getAllContacts(contactDispatch);
     }
 
     // SORTING ORDERS
     // --------------------------
+    sortOrder(contactDispatch, filterOrders());
+
+    return () => {};
+  }, [contactDispatch, isAscending, isDescending, isCountryCode]);
+
+  //*SORTING FUNCTIONS AND LOGIC
+
+  const filterOrders = () => {
+    const dataArr = contacts;
+
+    // ASCENDING LOGIC
     if (isAscending) {
-      let dataArr = contactsPerPage;
       const searchAscArr = dataArr.sort((a, b) =>
         a.lastName > b.lastName ? 1 : b.lastName > a.lastName ? -1 : 0
       );
-      setMatched(searchAscArr);
-      setIsAscending(false);
+
+      return searchAscArr;
     }
+
+    // DESCENDING LOGIC
     if (isDescending) {
-      let dataArr = contactsPerPage;
       const searchDescArr = dataArr.sort((a, b) =>
         a.lastName < b.lastName ? 1 : b.lastName < a.lastName ? -1 : 0
       );
-      setMatched(searchDescArr);
-      setIsDescending(false);
+      return searchDescArr;
     }
 
+    // COUNTRY CODE LOGIC
     if (isCountryCode) {
-      let dataArr = contactsPerPage;
       const searchCountryCodeArr = dataArr.sort((a, b) =>
         a.countryCode > b.countryCode
           ? 1
@@ -68,97 +62,74 @@ const ContactFilter = () => {
           ? -1
           : 0
       );
-      setMatched(searchCountryCodeArr);
-      setIsCountryCode(false);
+      return searchCountryCodeArr;
     }
-    // Clean up unmounting
-    return () => {
-      setIsAscending(false);
-      setIsDescending(false);
-      setIsCountryCode(false);
-    };
-  }, [filterText, search, isAscending, isDescending, isCountryCode]);
-
-  const onChange = (e) => {
-    if (e.target.value !== '') {
-      const targetValue = e.target.value.trim();
-      setFilterText(targetValue);
-    } else {
-      setFilterText('');
-    }
+    return contacts;
   };
-
+  
   return (
     <Fragment>
-      <form onSubmit={(e) => e.preventDefault()}>
+      <div>
         <h1 className='text-sm text-center leading-relaxed m-3'>
           Search by first name, last name or email
         </h1>
-        <input
-          type='text'
-          className='p-2 block bg-primary text-black placeholder-black placeholder-opacity-40 input input-bordered input-secondary w-full max-w-xs'
-          placeholder='Search Contacts...'
-          onChange={onChange}
-        />
-        <div>
-          <button
-            className='btn btn-secondary m-3 btn-xs'
-            onClick={() =>
-              matched.length > 0 ? setSearch(true) : setSearch(false)
-            }>
-            Search
-          </button>
+        <div className='dropdown dropdown-hover'>
+          <label tabIndex='0' className='btn-xs btn-secondary btn m-1'>
+            Sort
+          </label>
+          <ul
+            tabIndex='0'
+            className='dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52'>
+            <li>
+              <button
+                onClick={(e) => {
+                  setIsAscending(true);
+                  setIsDescending(false);
+                  setIsCountryCode(false);
+                }}>
+                Last Name A-Z
+              </button>
+            </li>
+            <li>
+              <button
+                onClick={(e) => {
+                  setIsDescending(true);
+                  setIsAscending(false);
+                  setIsCountryCode(false);
+                }}>
+                Last Name Z-A
+              </button>
+            </li>
+            <li>
+              <button
+                onClick={(e) => {
+                  setIsCountryCode(true);
+                  setIsDescending(false);
+                  setIsAscending(false);
+                }}>
+                Country Code
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
 
-          <div className='dropdown dropdown-hover'>
-            <label tabIndex='0' className='btn-xs btn-secondary btn m-1'>
-              Sort
-            </label>
-            <ul
-              tabIndex='0'
-              className='dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52'>
-              <li>
-                <button onClick={() => setIsAscending(true)}>
-                  Last Name A-Z
-                </button>
-              </li>
-              <li>
-                <button onClick={() => setIsDescending(true)}>
-                  Last Name Z-A
-                </button>
-              </li>
-              <li>
-                <button onClick={() => setIsCountryCode(true)}>
-                  Country Code
-                </button>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div className='flex flex-col items-center justify-center m-3 sm:flex-wrap sm:flex-row '>
-          {contacts !== null ? (
-            search ? (
-              // handling the search functionality here
-              contacts.map((contactItem) => (
-                <ContactDetails
-                  contactItem={contactItem}
-                  key={contactItem._id}
-                />
-              ))
-            ) : (
-              contactsPerPage !== null &&
-              // Handles the pagination
-              contactsPerPage.map((contactItem) => (
-                <ContactDetails
-                  contactItem={contactItem}
-                  key={contactItem._id}
-                />
-              ))
-            )
-          ) : (
-            <h1>No Data to Search</h1>
-          )}
-        </div>
-      </form>
+      <div className='flex flex-col items-center justify-center m-3 sm:flex-wrap sm:flex-row '>
+        {isAscending
+          ? contacts.map((contactItem) => (
+              <ContactDetails contactItem={contactItem} key={contactItem._id} />
+            ))
+          : isDescending
+          ? contacts.map((contactItem) => (
+              <ContactDetails key={contactItem._id} contactItem={contactItem} />
+            ))
+          : isCountryCode
+          ? contacts.map((contactItem) => (
+              <ContactDetails key={contactItem._id} contactItem={contactItem} />
+            ))
+          :  <AllContacts />}
+       
+      </div>
     </Fragment>
   );
 };
