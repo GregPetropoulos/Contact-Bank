@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/** CSS RESPONSIVE DEBUGGER */
+/* * {
+  border: 1px solid blue !important;
+} */
+
+/** RESET */
+/* * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+} */
+
+/* *------------------- */
+/* *CSS DEBUGGER */
+/* *------------------- */
+ /* * {
+  background: #000 !important;
+  color: #0f0 !important;
+  outline: solid #f00 1px !important;
+} */
+/* *------------------- */
+/* *---------------------- */
